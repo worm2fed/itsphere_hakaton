@@ -24,32 +24,72 @@ module.exports = {
     ],
     module: {
         rules: [
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-                        // the "scss" and "sass" values for the lang attribute to the right configs here.
-                        // other preprocessors should work out of the box, no loader config like this nessessary.
-                        'scss': 'vue-style-loader!css-loader!sass-loader',
-                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                    }
-                    // other vue-loader options go here
-                }
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
-                }
-            }
+           {
+                   test: /\.vue$/,
+                   loader: 'vue-loader',
+                   options: {
+                       loaders: {
+                           // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                           // the "scss" and "sass" values for the lang attribute to the right configs here.
+                           // other preprocessors should work out of the box, no loader config like this nessessary.
+                           'scss': 'vue-style-loader!css-loader!sass-loader',
+                           'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                       }
+                       // other vue-loader options go here
+                   }
+               },
+               {
+                   test: /\.scss$/,
+                   loader: 'vue-loader',
+                   options: {
+                       loaders: {
+                           // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                           // the "scss" and "sass" values for the lang attribute to the right configs here.
+                           // other preprocessors should work out of the box, no loader config like this nessessary.
+                           'scss': 'vue-style-loader!css-loader!sass-loader',
+                           //'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                       }
+                       // other vue-loader options go here
+                   }
+               },
+
+               {
+                   test: /\.js$/,
+                   loader: 'babel-loader',
+                   exclude: /node_modules/
+               },
+               {
+                   test: /\.css$/,
+                   loader: 'style-loader!css-loader'
+               },
+               {
+                   test: /\.(png|jpg|gif|svg)$/,
+                   loader: 'file-loader',
+                   options: {
+                       name: '[name].[ext]?[hash]'
+                   }
+               },
+               ////////
+               {
+                   test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                   loader: "url?limit=10000&mimetype=application/font-woff"
+               },
+               {
+                   test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                   loader: "url?limit=10000&mimetype=application/font-woff"
+               },
+               {
+                   test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                   loader: "url?limit=10000&mimetype=application/octet-stream"
+               },
+               {
+                   test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                   loader: "file"
+               },
+               {
+                       test: /\.svg$/, //add svg extension if you want to load raw svg data in component
+                       use: 'raw-loader'
+               },
         ]
     },
     resolve: {
