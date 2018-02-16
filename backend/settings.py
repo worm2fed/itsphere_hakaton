@@ -120,3 +120,7 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }
+
+
+from backend.settings_local import *
+CORS_ORIGIN_ALLOW_ALL = True
