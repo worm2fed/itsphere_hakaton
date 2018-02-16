@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^$', backend.views.index)
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns.append(url(r'^__debug__/', include(debug_toolbar.urls)))
+# if settings.DEBUG:
+    # import debug_toolbar
+    # urlpatterns.append(url(r'^__debug__/', include(debug_toolbar.urls)))
