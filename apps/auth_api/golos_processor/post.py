@@ -20,6 +20,13 @@ class PostCommand(BaseCommand):
             itsphere_tag = Tag.objects.get_or_create(name=settings.MAIN_TAG)[0]
             if itsphere_tag not in tags:
                 tags.append(itsphere_tag)
+            # Mark with tag for project or user
+            if post.author.is_employer:
+                type_tag = Tag.objects.get_or_create(name='project')[0]
+            else:
+                type_tag = Tag.objects.get_or_create(name='user')[0]
+            if type_tag not in tags:
+                tags.append(type_tag)
             try:
                 if settings.POST_TO_BLOCKCHAIN:
                     steem.post(
