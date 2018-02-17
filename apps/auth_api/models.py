@@ -31,9 +31,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', unique=True, blank=False, null=False)
     fio = models.CharField(max_length=200, unique=False, null=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     is_active = models.BooleanField('active', default=True)
     is_staff = models.BooleanField('manager', default=False)
+
+    is_employer = models.BooleanField('employer', default=False)
 
     objects = UserManager()
 
@@ -71,6 +74,15 @@ class Worker(models.Model):
     """
 
 
+class Team(models.Model):
+    """
+    This model represents team, working on project
+    """
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    worker = models.ForeignKey('User', on_delete=models.CASCADE)
+    joined_at = models.DateTimeField(auto_now_add=True, blank=True)
+
+
 class Post(models.Model):
     """
     This model needed to easy handle posts. We have to kinds of post: project and worker. This models simply
@@ -78,6 +90,7 @@ class Post(models.Model):
     """
     project = models.ForeignKey('Project', on_delete=models.CASCADE, blank=True, null=True)
     worker = models.ForeignKey('Worker', on_delete=models.CASCADE, blank=True, null=True)
+    status = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if self.project is None and self.worker is None:
