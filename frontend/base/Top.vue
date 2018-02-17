@@ -10,22 +10,15 @@
       <router-link class="ele logo-wrap" :to="'/'" >
         <img class="logo" src="../assets/logo.png" alt="">
 
-        {{ $t("base.sitename") }}
+       ITSPHERE
       </router-link>
     </nav>
 
     <nav class="login-box">
 
-			<div class="lang_switcher" v-on:click="changeLocale()">{{this.auth.user.locale}} </div>
-
-			<router-link :to="'/ico/'" v-if="auth.isAuth">
-			 <i class="fa fa-bitcoin"></i>
-				ICO
-			</router-link>
-
       <router-link :to="'/add/'" v-if="auth.isAuth">
        <i class="fa fa-plus"></i>
-      {{ $t("base.add") }}
+      Добавить
       </router-link>
 
 
@@ -67,7 +60,7 @@
           </el-dropdown-item>
           </router-link>
 
-          <el-dropdown-item disabled>Кошелек</el-dropdown-item>
+
           <el-dropdown-item disabled>ICO</el-dropdown-item>
           <el-dropdown-item divided v-if="auth.isAuth">
               <div @click="logout()" >
