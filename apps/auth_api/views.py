@@ -15,8 +15,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-
     filter_fields = ('email','username',)
 
     @list_route()

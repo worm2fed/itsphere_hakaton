@@ -74,7 +74,7 @@ APPEND_SLASH = True
 SITE_ID = 1
 
 ROOT_URLCONF = 'backend.urls'
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -219,8 +219,6 @@ DRACEDITOR_UPLOAD_URL = '/api/uploader/'  # change to local uploader
 MAX_IMAGE_UPLOAD_SIZE = 5242880  # 5MB
 COMPRESS_IMAGE_QUALITY = 50  # Percentage
 
-
-APPEND_SLASH = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
