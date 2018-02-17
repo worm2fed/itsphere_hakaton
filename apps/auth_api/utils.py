@@ -1,13 +1,10 @@
 
 from rest_framework_jwt.settings import api_settings
 
-
-
+from apps.auth_api.serializers import UserSerializer
 
 
 def jwt_response_payload_handler(token, user=None, request=None):
-    from apps.auth_api.serializers import UserSerializer
-
     return {'token': token, 'user': UserSerializer(user).data}
 
 

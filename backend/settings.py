@@ -1,4 +1,3 @@
-#coding-utf-
 """
 Django settings for backend project.
 
@@ -12,7 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-import time
 from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -57,26 +55,10 @@ MIDDLEWARE = [
 ]
 APPEND_SLASH = True
 
-
-
-AUTH_USER_MODEL = 'auth_api.User'
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-APPEND_SLASH = True
-
 SITE_ID = 1
 
 ROOT_URLCONF = 'backend.urls'
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -166,7 +148,7 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     # TODO после отладки, запилить обновление токена
     'JWT_EXPIRATION_DELTA': timedelta(days=7),
-    'JWT_VERIFY_EXPIRATION':False, # Это не секьюрно TODO -на фронте сделат обновление токена
+    'JWT_VERIFY_EXPIRATION': False, # Это не секьюрно TODO -на фронте сделат обновление токена
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.auth_api.utils.jwt_response_payload_handler',
 }
@@ -174,15 +156,12 @@ JWT_AUTH = {
 ##################
 ###  TAGULOUS  ###
 ##################
-
 SERIALIZATION_MODULES = {
     'xml':    'tagulous.serializers.xml_serializer',
     'json':   'tagulous.serializers.json',
     'python': 'tagulous.serializers.python',
     'yaml':   'tagulous.serializers.pyyaml',
 }
-
-
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -237,11 +216,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 WEBPACK_LOADER = {
     'DEFAULT': {
