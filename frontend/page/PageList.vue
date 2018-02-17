@@ -239,41 +239,7 @@ export default {
     navigate:function(voter){
       this.$router.push('/'+voter)
     },
-    makeMarkers(){
 
-      var prepared_markers=[]
-      var pos_pages=this.pages.filter(function(e){return e.position && typeof(e.position.latitude)!="undefined" && e.position && typeof(e.position.longitude)!="undefined"  })
-      if (pos_pages && pos_pages.length>0){
-        for (var mar in pos_pages){
-          try{
-            var m={
-              'page_id': this.pages[mar].id,
-              'pay_out':this.pages[mar].total_pending_payout_value,
-              'position':{
-                'lat':parseFloat(this.pages[mar].position.latitude),
-                'lng':parseFloat(this.pages[mar].position.longitude),
-
-              },
-              'radius':1000
-            }
-            if (typeof(m)!="undefined"){
-              prepared_markers.push(m)
-            }
-            else{
-              console.log('undef')
-            }
-
-          }
-          catch(err){
-            console.log('eee',err)
-          }
-
-          //console.log('putting',this.pages[mar].position.latitude, this.pages[mar].position.longitude)
-        }
-        //this.markers=prepared_markers
-        this.$set(this,'markers', prepared_markers )
-      }
-    },
 
     fetchPage () {
 			this.loading = true
@@ -281,7 +247,7 @@ export default {
 			let params = {}
 			params.papage = this.nex_page
 			if (!this.nex_page) { return }
-			// Если на траниче пользователя
+			// Если на транице пользователя
 			let author = this.$route.params.author
 			if (author) {
         params.author__username = author
@@ -304,12 +270,9 @@ export default {
         this.blog_view=false
       }
 			Page.get(params).then(res => {
-          this.pages = this.pages.concat(res.body.results)
-					// TODO Как должно работать? Пофиксить
-          this.makeMarkers()
-          this.fitBounds()
-					this.loading = false
-					this.nex_page = res.body.next
+                this.pages = this.pages.concat(res.body.results)
+        		this.loading = false
+        		this.nex_page = res.body.next
 			})
     },
     getPageUrl(page){
