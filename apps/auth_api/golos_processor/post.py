@@ -22,7 +22,7 @@ class PostCommand(BaseCommand):
             # Get post tags
             tags = post.tags
             # Mark post with ITSphere tag
-            itsphere_tag = Tag.objects.get_or_create(name='itsphere')[0]
+            itsphere_tag = Tag.objects.get_or_create(name=settings.MAIN_TAG)[0]
             if itsphere_tag not in tags:
                 tags.append(itsphere_tag)
             try:
@@ -32,9 +32,8 @@ class PostCommand(BaseCommand):
                         body=post.post.body,
                         author=settings.POST_AUTHOR,
                         permlink=post.permlink,
-                        parentPermlink='ITSphere',
                         tags=tags,
-                        metadata=post.post.metadata
+                        meta=post.post.metadata
                     )
                 post.is_published = True
             except Exception:
