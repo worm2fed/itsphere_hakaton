@@ -9,20 +9,15 @@ from rest_framework.permissions import AllowAny
 from apps.auth_api.models import User
 from apps.auth_api.serializers import UserSerializer
 from apps.auth_api.utils import jwt_response_by_user
-from apps.pages.sendmail import mail_registered
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    filter_fields = 'email',
-
+    filter_fields = 'username',
     @list_route()
     def current(self, request):
-        try:
-            return Response(self.serializer_class(request.user).data)
-        except Exception:
-            return Response(None)
+        return Response(self.serializer_class(request.user).data)
 
     @detail_route(methods=['post'])
     def set_avatar(self, request, pk=None):
@@ -44,7 +39,6 @@ class RegisterView(APIView):
 
         if slz.is_valid():
             user = User.objects.create_user(**slz.validated_data)
-            mail_registered(user)
             return Response(jwt_response_by_user(user))
         else:
             return Response(slz._errors, status=status.HTTP_400_BAD_REQUEST)
