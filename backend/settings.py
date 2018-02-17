@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_filters',
     'webpack_loader',
     'backend',
-    'apps.pages',
     'apps.auth_api',
     'pagedown',
     'tagulous',

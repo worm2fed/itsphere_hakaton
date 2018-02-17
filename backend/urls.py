@@ -7,16 +7,12 @@ from rest_framework.routers import DefaultRouter
 
 from backend.views import IndexView
 from rest_framework_jwt.views import obtain_jwt_token
-from apps.pages import views as page_views
-from apps.auth_api import views as auth_views
+from apps.auth_api import views
 
 router = DefaultRouter()
-router.register('pages', page_views.PageViewSet)
-router.register('users', auth_views.UserViewSet)
-router.register('tags', page_views.TagViewSet)
-router.register('images', page_views.ImageViewSet)
-router.register('master-tags', page_views.MasterTagViewSet)
-router.register('comments', page_views.CommentViewSet)
+router.register('posts', views.PostViewSet)
+router.register('users', views.UserViewSet)
+router.register('tags', views.TagViewSet)
 
 
 urlpatterns = []
@@ -34,8 +30,7 @@ if settings.DEBUG:
 urlpatterns += [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', obtain_jwt_token),
-    url(r'^post_image/', page_views.post_image),
-    url(r'^sign-up/', auth_views.RegisterView.as_view()),
+    url(r'^sign-up/', views.RegisterView.as_view()),
     url(r'^api/', include(router.urls)),
 
     # Vue on frontend

@@ -6,9 +6,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.permissions import AllowAny
 
-from apps.auth_api.models import User
-from apps.auth_api.serializers import UserSerializer
+from apps.auth_api.models import User, Tag, Post
+from apps.auth_api.serializers import UserSerializer, TagSerializer, PostSerializer, PostListSerializer
 from apps.auth_api.utils import jwt_response_by_user
+from apps.common.utils import MultiSerializerViewSetMixin, _CustomPageViewSetPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -41,3 +42,25 @@ class RegisterView(APIView):
             return Response(jwt_response_by_user(user))
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PostViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
+    lookup_field = 'permlink'
+    queryset = Post.objects.all()
+    filter_fields = 'author__username',
+    pagination_class = _CustomPageViewSetPagination
+    serializer_class = PostSerializer
+    serializer_action_classes = {
+        'list': PostListSerializer
+    }
+
+    def get_queryset(self):
+        return self.queryset.prefetch_related('tags').order_by('-updated_at')
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

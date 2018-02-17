@@ -1,19 +1,11 @@
-import io
-import PIL.Image
-
 from django.forms.models import model_to_dict
-from django.core.files.base import ContentFile
 
 from rest_framework.pagination import PageNumberPagination
 from mptt.templatetags.mptt_tags import cache_tree_children
 
-from apps.pages.models import Image
-from backend.settings import COMPRESS_IMAGE_QUALITY
-
 
 def _node_to_dict(node, fields):
     result = model_to_dict(node, fields)
-
     children = [_node_to_dict(c, fields) for c in node.get_children()]
 
     if children:
@@ -28,7 +20,6 @@ def make_tree_by_root_nodes(root_nodes, fields=None):
     fields: поля для сериализации
     """
     nodes = cache_tree_children(root_nodes)
-
     return [_node_to_dict(n, fields=fields) for n in nodes]
 
 
@@ -41,13 +32,11 @@ class _CustomPageViewSetPagination(PageNumberPagination):
     def get_next_link(self):
         if not self.page.has_next():
             return None
-
         return self.page.next_page_number()
 
     def get_previous_link(self):
         if not self.page.has_previous():
             return None
-
         return self.page.previous_page_number()
 
 
@@ -79,17 +68,3 @@ class MultiSerializerViewSetMixin(object):
             return self.serializer_action_classes[self.action]
         except (KeyError, AttributeError):
             return super(MultiSerializerViewSetMixin, self).get_serializer_class()
-
-
-def save_image(file, path, quality=None):
-    image = Image.objects.create()
-    b_img = io.BytesIO()
-
-    img = PIL.Image.open(io.BytesIO(file.read()))
-    img.save(b_img, "JPEG", quality=quality or COMPRESS_IMAGE_QUALITY)
-    b_img.seek(0)
-
-    image.file.save(path + str(file), ContentFile(b_img.read()))
-
-    return image
-
