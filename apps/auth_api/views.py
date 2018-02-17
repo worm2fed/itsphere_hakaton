@@ -14,7 +14,11 @@ from apps.auth_api.utils import jwt_response_by_user
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    filter_fields = 'username',
+
+
+
+    filter_fields = ('email','username',)
+
     @list_route()
     def current(self, request):
         return Response(self.serializer_class(request.user).data)
@@ -22,10 +26,8 @@ class UserViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['post'])
     def set_avatar(self, request, pk=None):
         file = request.FILES.get('file')
-
         obj = self.get_object()
         obj.avatar.save(str(file), ContentFile(file.read()))
-
         return Response(obj.avatar.url)
 
 
@@ -35,10 +37,9 @@ class RegisterView(APIView):
 
     @list_route(['POST'])
     def post(self, request):
-        slz = self.serializer_class(data=request.data)
-
-        if slz.is_valid():
-            user = User.objects.create_user(**slz.validated_data)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            user = User.objects.create_user(**serializer.validated_data)
             return Response(jwt_response_by_user(user))
         else:
-            return Response(slz._errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

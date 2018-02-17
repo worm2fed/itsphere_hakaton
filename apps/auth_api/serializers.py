@@ -5,15 +5,14 @@ from apps.auth_api.utils import check_steam_key
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     # TODO валидировать юзера на патчинг самого себя
     has_posting_key = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = (
-            'id', 'email', 'username', 'locale', 'has_posting_key',
-            'posting_key', 'password', 'avatar'
-        )
+        fields = ('id', 'email', 'password', 'avatar', 'fio', 'is_staff')
+
         extra_kwargs = {
             'posting_key': {'write_only': True, 'required': False},
             'password': {'write_only': True, 'required': False},
@@ -35,5 +34,4 @@ class UserSerializer(serializers.ModelSerializer):
 class ShortUserSerializer(UserSerializer):
     class Meta:
         model = User
-        fields = 'id', 'username'
-
+        fields = ('id', 'email')

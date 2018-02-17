@@ -2,7 +2,11 @@ from django.contrib.auth import get_user_model
 
 
 class EmailAsUsernameBackend:
-    """ Login by username """
+
+    """
+    Use username as email
+    """
+
     user_model = get_user_model()
 
     def authenticate(self, username=None, password=None, **kwargs):
