@@ -47,7 +47,7 @@ class RegisterView(APIView):
 class PostViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
     lookup_field = 'permlink'
     queryset = Post.objects.all()
-    filter_fields = 'author__username',
+    # filter_fields = 'author__username',
     pagination_class = _CustomPageViewSetPagination
     serializer_class = PostSerializer
     serializer_action_classes = {
@@ -56,9 +56,6 @@ class PostViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.prefetch_related('tags').order_by('-updated_at')
-
-    def perform_create(self, serializer):
-        serializer.save()
 
 
 class TagViewSet(viewsets.ModelViewSet):
