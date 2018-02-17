@@ -57,6 +57,9 @@ class PostViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         return self.queryset.prefetch_related('tags').order_by('-updated_at')
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
