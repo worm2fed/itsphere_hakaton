@@ -13,14 +13,9 @@ class PostCommand(BaseCommand):
         posts = Post.objects.filter(is_published=False)
         # Send to Golos all not published posts
         for post in posts:
-            if post.project is None:
-                post = post.worker
-            else:
-                post = post.project
-
             steem = Steem(node=settings.NODE_URL, wif=settings.POSTING_KEY)
             # Get post tags
-            tags = post.tags
+            tags = post.get_tags()
             # Mark post with ITSphere tag
             itsphere_tag = Tag.objects.get_or_create(name=settings.MAIN_TAG)[0]
             if itsphere_tag not in tags:
@@ -29,11 +24,11 @@ class PostCommand(BaseCommand):
                 if settings.POST_TO_BLOCKCHAIN:
                     steem.post(
                         title=post.title,
-                        body=post.post.body,
+                        body=post.body,
                         author=settings.POST_AUTHOR,
                         permlink=post.permlink,
                         tags=tags,
-                        meta=post.post.metadata
+                        meta=post.metadata
                     )
                 post.is_published = True
             except Exception:
