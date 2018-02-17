@@ -19,3 +19,4 @@ backend/media/
 npm-debug.log*
 
 
+webpack-stats.json

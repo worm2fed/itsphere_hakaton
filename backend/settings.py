@@ -228,8 +228,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Post to blockchain or store only internally
 POST_TO_BLOCKCHAIN = True
 MAIN_TAG = 'itsphere'
-POSTING_KEY = '5HrShnaADgYnWyMpyzJX5r75byBUVZUyqTRsBWmiNYjEYUGDBZT'
-POST_AUTHOR = 'b14ckb0x'
+POSTING_KEY = '5JgEDJqUKLSK6sD2rCqaPxZ2YAyaxTXmcqmp14WtWJ2BCpFzh4o'
+POST_AUTHOR = 'itsphere'
 NODE_URL = 'wss://ws.golos.io'
 
 from backend.settings_local import *

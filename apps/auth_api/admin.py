@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.auth_api.models import BlockChain, User
+from apps.auth_api.models import User
 
 
 class BlockhainAdmin(admin.ModelAdmin):
@@ -8,4 +8,4 @@ class BlockhainAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User)
-admin.site.register(BlockChain, BlockhainAdmin)
+# admin.site.register(BlockChain, BlockhainAdmin)

@@ -10,7 +10,7 @@ from django.dispatch.dispatcher import receiver
 from django.utils.text import slugify
 from transliterate import translit
 
-from apps.auth_api.models import BlockChain, User
+from apps.auth_api.models import User
 
 STATUS_CHOICES = (
     (0, u'Ошибка публикации'),
@@ -183,7 +183,3 @@ def permlink_generator(sender, instance, **kwargs):
     if not instance.updated_at:
         instance.updated_at = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
 
-
-class Parser_settings(models.Model):
-    blockchain = models.ForeignKey(BlockChain)
-    last_proceeded_block = models.BigIntegerField(default=0)
