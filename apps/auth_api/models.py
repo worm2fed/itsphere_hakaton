@@ -1,6 +1,5 @@
-# coding:utf-8
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.core.mail import send_mail
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
@@ -54,10 +53,35 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.email
 
-    def send_email_to_user(self, subject, message, from_email=None, **kwargs):
-        send_mail(subject, message, from_email, [self.email], **kwargs)
-
     @property
     def avatar_url(self):
         if self.avatar and hasattr(self.avatar, 'url'):
             return self.avatar.url
+
+
+class Project(models.Model):
+    """
+    This model represents post about project
+    """
+
+
+class Worker(models.Model):
+    """
+    This model represents post about worker
+    """
+
+
+class Post(models.Model):
+    """
+    This model needed to easy handle posts. We have to kinds of post: project and worker. This models simply
+    stores foreign key to post wanted to post
+    """
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, blank=True, null=True)
+    worker = models.ForeignKey('Worker', on_delete=models.CASCADE, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.project is None and self.worker is None:
+            raise ValidationError("You have to link post to project or profile")
+        if self.project is not None and self.worker is not None:
+            raise ValidationError("You can specify only one of project or profile links")
+        super(Post, self).save(*args, **kwargs)
