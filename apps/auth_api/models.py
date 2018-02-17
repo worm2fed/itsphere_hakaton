@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 from django.core.exceptions import ValidationError
->>>>>>> ae90e36b344f1bc27c6f4e7e628ae2cc8dace611
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -16,14 +13,7 @@ class UserManager(BaseUserManager):
         """
         Creates and saves a User with the given email and password.
         """
-<<<<<<< HEAD
-        if not username:
-            raise ValueError('The given username must be set')
-
         user = self.model(username=username, **extra_fields)
-=======
-        user = self.model(email=email, **extra_fields)
->>>>>>> ae90e36b344f1bc27c6f4e7e628ae2cc8dace611
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -39,25 +29,9 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=200, unique=True, null=True)
-<<<<<<< HEAD
     email = models.EmailField('email address', unique=True, blank=True, null=True)
-    bitcoin_address = models.CharField(max_length=150, null=True)
-
-    contacts = models.CharField(max_length=250, null=True)
-    languages = models.CharField(max_length=250, null=True)
-    message = models.CharField(max_length=1024, null=True)
-    locale = models.CharField(max_length=100, choices=LOCALE_CHOICES, default=LOCALE_CHOICES[0][0])
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, max_length=500)
-
-
-    posting_key = models.CharField(max_length=150, blank=True, null=True)
-
-    auto_update_position = models.BooleanField(default=True)
-    now_not_in_position = models.BooleanField(default=False)
-=======
-    email = models.EmailField('email address', unique=True, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
->>>>>>> ae90e36b344f1bc27c6f4e7e628ae2cc8dace611
 
     is_active = models.BooleanField('active', default=True)
     is_staff = models.BooleanField('manager', default=False)
@@ -74,17 +48,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'users'
 
     def __str__(self):
-<<<<<<< HEAD
         return self.username or self.email
 
     def get_full_name(self):
-        return '{}: {}'.format(self.name, self.email)
-=======
-        return self.email
-
-    def get_full_name(self):
         return '{}: {}'.format(self.username, self.email)
->>>>>>> ae90e36b344f1bc27c6f4e7e628ae2cc8dace611
 
     def get_short_name(self):
         return self.username
@@ -110,25 +77,6 @@ class Project(models.Model):
     bitbucket_link = models.URLField(blank=True)
     golos_link = models.URLField(blank=False)
 
-<<<<<<< HEAD
-
-class BlockChain(models.Model):
-    master_node = models.CharField(max_length=100)
-    locale = models.CharField(max_length=5)
-    blockchain = models.CharField(max_length=15)
-
-    def __str__(self):
-        return '%s' % self.locale
-
-    def get_locale(self):
-        if not BlockChain.objects.all().exists():
-            BlockChain.objects.get_or_create(locale='ru', master_node='wss://ws.mapala.net', blockchain='golos')
-            BlockChain.objects.get_or_create(locale='en', master_node='wss://node.steem.ws', blockchain='steem')
-        if not self.locale:
-            self.locale = BlockChain.objects.get(locale='ru')
-            self.save()
-        return self.locale.locale
-=======
     @property
     def body(self):
         """
@@ -238,4 +186,3 @@ class Post(models.Model):
         :return: list
         """
         return [t.name for t in self.post.tags.all()]
->>>>>>> ae90e36b344f1bc27c6f4e7e628ae2cc8dace611
