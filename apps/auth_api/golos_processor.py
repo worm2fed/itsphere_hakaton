@@ -33,11 +33,11 @@ class GolosCommand(BaseCommand):
             try:
                 if settings.POST_TO_BLOCKCHAIN:
                     steem.post(
-                        post.title,
-                        post.post.body,
-                        'ITSphere',
-                        post.permlink, meta,
-                        category="test",
+                        title=post.title,
+                        body=post.post.body,
+                        author='ITSphere',
+                        permlink=post.permlink,
+                        meta=meta,
                         tags=tags
                     )
                 post.is_published = True
