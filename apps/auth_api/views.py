@@ -16,7 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    filter_fields = ('email','username',)
+    filter_fields = ('email', 'username',)
 
     @list_route()
     def current(self, request):
@@ -58,7 +58,7 @@ class PostViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
         return self.queryset.prefetch_related('tags').order_by('-updated_at')
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save()
 
 
 class TagViewSet(viewsets.ModelViewSet):
