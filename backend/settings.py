@@ -75,6 +75,7 @@ SITE_ID = 1
 
 ROOT_URLCONF = 'backend.urls'
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -90,6 +91,7 @@ MEDIA_URL = '/media/'
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
+
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
