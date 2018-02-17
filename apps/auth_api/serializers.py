@@ -7,7 +7,7 @@ from apps.auth_api.utils import check_steam_key
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'avatar', 'is_staff')
+        fields = '__all__'
 
         extra_kwargs = {
             'password': {'write_only': True, 'required': False},
@@ -33,20 +33,16 @@ class PostBaseSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
 
-    def get_title(self, obj):
-        return obj.post.title
-
 
 class PostListSerializer(PostBaseSerializer):
     body = serializers.SerializerMethodField()
-    voters = ShortUserSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
         fields = '__all__'
 
     def get_body(self, obj):
-        return obj.post.body[:100]
+        return obj.body[:100]
 
 
 class PostSerializer(PostBaseSerializer):
