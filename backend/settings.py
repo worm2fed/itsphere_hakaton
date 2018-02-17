@@ -75,25 +75,6 @@ MEDIA_URL = '/media/'
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_ROOT, 'templates', 'plain', 'example'),
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -115,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'backend.authentication.EmailAsUsernameBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 
