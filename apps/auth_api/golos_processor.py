@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from steem import Steem
+from piston.steem import Steem
 
 from apps.auth_api.models import Post, Tag
 from backend import settings
@@ -20,8 +20,8 @@ class GolosCommand(BaseCommand):
             else:
                 post = post.project
 
-            steem = Steem(post.master_node)
-            steem.wallet.setKeys(settings.ITSPHERE_POSTING_KEY)
+            steem = Steem(node=settings.NODE_URL, wif=settings.POSTING_KEY)
+            # steem.wallet.setKeys(settings.POSTING_KEY)
             # Get post tags
             tags = post.tags
             # Mark post with ITSphere tag
@@ -33,7 +33,7 @@ class GolosCommand(BaseCommand):
                     steem.post(
                         title=post.title,
                         body=post.post.body,
-                        author='ITSphere',
+                        author=settings.POST_AUTHOR,
                         permlink=post.permlink,
                         parentPermlink='ITSphere',
                         tags=tags,
