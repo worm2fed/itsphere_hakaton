@@ -13,8 +13,6 @@ class GolosCommand(BaseCommand):
     def handle(self, *args, **options):
         posts = Post.objects.filter(is_published=False)
 
-        # todo add url
-        meta = {'app': 'URL'}
         # Send to Golos all not published posts
         for post in posts:
             if post.project is None:
@@ -37,8 +35,9 @@ class GolosCommand(BaseCommand):
                         body=post.post.body,
                         author='ITSphere',
                         permlink=post.permlink,
-                        meta=meta,
-                        tags=tags
+                        parentPermlink='ITSphere',
+                        tags=tags,
+                        metadata=post.post.metadata
                     )
                 post.is_published = True
             except Exception:

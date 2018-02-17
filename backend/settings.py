@@ -193,6 +193,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Post to blockchain or store only internally
 POST_TO_BLOCKCHAIN = True
-ITSPHERE_POSTING_KEY = ""
+ITSPHERE_POSTING_KEY = ''
+NODE_URL = ''
 
 from backend.settings_local import *

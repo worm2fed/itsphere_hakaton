@@ -56,11 +56,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.email
 
-    @property
-    def avatar_url(self):
-        if self.avatar and hasattr(self.avatar, 'url'):
-            return self.avatar.url
-
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -91,6 +86,19 @@ class Project(models.Model):
         # TODO: build post body
         return self.description
 
+    @property
+    def metadata(self):
+        """
+        Helper to get metadata for posting to Golos
+        :return: dict
+        """
+        return {
+            'golos_link': self.golos_link,
+            'github_link': self.github_link,
+            'gitlab_link': self.gitlab_link,
+            'bitbucket_link': self.bitbucket_link
+        }
+
 
 class Worker(models.Model):
     """
@@ -117,6 +125,16 @@ class Worker(models.Model):
         """
         # TODO: build post body
         return self.body
+
+    @property
+    def metadata(self):
+        """
+        Helper to get metadata for posting to Golos
+        :return: dict
+        """
+        return {
+            'golos_link': self.golos_link
+        }
 
 
 class Post(models.Model):
