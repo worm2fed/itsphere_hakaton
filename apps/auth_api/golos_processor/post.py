@@ -5,14 +5,12 @@ from apps.auth_api.models import Post, Tag
 from backend import settings
 
 
-class GolosCommand(BaseCommand):
+class PostCommand(BaseCommand):
     """
-    Class to handle interaction with golos blockchain, like posting
+    Command to send posts to Golos blockchain
     """
-
     def handle(self, *args, **options):
         posts = Post.objects.filter(is_published=False)
-
         # Send to Golos all not published posts
         for post in posts:
             if post.project is None:

@@ -11,8 +11,6 @@ def jwt_response_payload_handler(token, user=None, request=None):
 def jwt_response_by_user(user):
     jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
     jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-
     payload = jwt_payload_handler(user)
     token = jwt_encode_handler(payload)
-
     return jwt_response_payload_handler(token, user)
