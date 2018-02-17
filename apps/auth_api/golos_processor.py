@@ -21,7 +21,6 @@ class GolosCommand(BaseCommand):
                 post = post.project
 
             steem = Steem(node=settings.NODE_URL, wif=settings.POSTING_KEY)
-            # steem.wallet.setKeys(settings.POSTING_KEY)
             # Get post tags
             tags = post.tags
             # Mark post with ITSphere tag
