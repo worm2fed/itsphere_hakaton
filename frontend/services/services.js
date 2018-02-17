@@ -5,7 +5,7 @@ vue.use(resource)
 
 export const http = vue.http
 
-export const Page = vue.resource('/api/pages{/permlink}/')
+export const Page = vue.resource('/api/posts{/permlink}/')
 export const Tag = vue.resource('/api/tags{/id}/')
 export const Comment = vue.resource('/api/comments{/id}/')
 //export const Avatar = vue.resource('/api/users/{/id}/set_avatar/')
