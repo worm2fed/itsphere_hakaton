@@ -35,10 +35,11 @@
           <el-form-item label="Описание проекта" prop="body">
               <textarea v-on:keyup="mark_preview()" type="text" id="mark_edit" class="mark_edit" v-model="page.body"></textarea>
           </el-form-item>
-          <el-form-item label="Категория Проекта">
+          <el-form-item label="Категория Проекта" prop="category">
 
-            <select name="" id="" :model="page.category" v-if="categories && categories.length >0">
-              <option :value="cat.id" v-for="cat in categories" > {{cat.name}}</option>
+            <select name="category" id="category" v-model="page.category" v-if="categories && categories.length >0">
+<!--               <option value="">не выбрана</option>
+ -->              <option  v-for="cat in categories" > {{cat.name}}</option>
             </select>
 
            <!--  <el-input :value="page.master_tag" v-model="ruleForm.selected_master_tag"></el-input> -->
@@ -65,7 +66,7 @@
 
           <!--  <el-button type="text">Отмена</el-button> -->
 
-           <el-upload
+           <!-- <el-upload
            action="/post_image/"
            type="drag"
            :drag="true"
@@ -79,7 +80,7 @@
            <i class="el-icon-upload"></i>
            <div class="el-dragger__text">Переместите сюда фотографию <em>или нажмите загрузить</em></div>
            <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
-           </el-upload>
+           </el-upload> -->
 
 
           <el-form-item>
@@ -252,6 +253,7 @@ export default {
       ruleForm: {
           title: '',
           body: '',
+          category:'',
           selected_master_tag:'',
           region: '',
           date1: '',
@@ -272,6 +274,9 @@ export default {
         // ],
         body: [
           { required: true, message: 'Содержимое не может быть пустым', trigger: 'blur' }
+        ],
+        category: [
+          { required: true, message: 'Выберите категорию', trigger: 'blur' }
         ],
         master_tag_default: [
           { required: true, message: 'Выберите основную категорию', trigger: 'blur' }
@@ -393,8 +398,11 @@ export default {
 
 	  // TODO Разделить добавление и обновление на 2 роута
 	  if (this.$route.path=="/add/") {
-		  Page.save({permlink: this.page.permlink}, this.page).then(res => {
-			this.$message({type: 'success', message: 'сохранено'})
+        this.page.category=this.categories.filter((it)=> it.name== this.page.category)[0].id
+        console.log( this.page.category)
+
+  		  Page.save({permlink: this.page.permlink}, this.page).then(res => {
+  			this.$message({type: 'success', message: 'сохранено'})
 		  }).catch(res => {
 			  this.error = data;
 			  this.error.form = JSON.parse(data.form)
