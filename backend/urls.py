@@ -6,7 +6,7 @@ from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 
 from backend.views import IndexView
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from apps.auth_api import views
 
 router = DefaultRouter()
@@ -31,6 +31,7 @@ if settings.DEBUG:
 urlpatterns += [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', obtain_jwt_token),
+    url(r'^api-auth-verify/', verify_jwt_token),
     url(r'^sign-up/', views.RegisterView.as_view()),
     url(r'^api/', include(router.urls)),
 
