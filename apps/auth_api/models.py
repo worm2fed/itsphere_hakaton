@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -7,6 +6,13 @@ from piston import Steem
 from transliterate import translit
 
 from backend import settings
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Tag(models.Model):
@@ -119,7 +125,7 @@ class Page(models.Model):
             'golos_link': self.author.golos_link,
         }
 
-    def post_to_golos(self):
+    def post_to_golos(self, is_repeat_request=False):
         """
         Method to post pages to Golos
         """
@@ -137,6 +143,7 @@ class Page(models.Model):
                     meta=self.metadata
                 )
             self.is_published = True
-        except Exception as e:
+        except Exception:
             self.is_published = False
-        self.save()
+        if is_repeat_request:
+            self.save()

@@ -11,4 +11,4 @@ class Command(BaseCommand):
         pages = Page.objects.filter(is_published=False)
         # Send to Golos all not published posts
         for page in pages:
-            page.post_to_golos()
+            page.post_to_golos(True)
