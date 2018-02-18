@@ -35,3 +35,10 @@ clean:
 # Run linter
 lint:
 	@npm run lint --silent
+
+
+
+update:
+	git pull
+	./manage collectstatic --noinput
+	supervisorctl restart all
