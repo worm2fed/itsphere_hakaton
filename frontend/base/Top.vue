@@ -187,6 +187,7 @@ h2{
     float: left;
     width: 25%;
     color: #fff;
+    margin-top: 1em;
 
     a {
         display: table-cell;
