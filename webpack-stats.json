@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {"status":"done","publicPath":"/static/dist/","chunks":{"main":[{"name":"main-4595814d4591a4608620.js","publicPath":"/static/dist/main-4595814d4591a4608620.js","path":"/Users/andrey/Documents/itsphere_hakaton/static/dist/main-4595814d4591a4608620.js"},{"name":"main-4595814d4591a4608620.js.map","publicPath":"/static/dist/main-4595814d4591a4608620.js.map","path":"/Users/andrey/Documents/itsphere_hakaton/static/dist/main-4595814d4591a4608620.js.map"}]}}
-=======
-{"status":"done","publicPath":"/static/dist/","chunks":{"main":[{"name":"main-9be3900d5775c7a8cddf.js","publicPath":"/static/dist/main-9be3900d5775c7a8cddf.js","path":"/Users/bbx/envs/itsphere/itsphere_hakaton/static/dist/main-9be3900d5775c7a8cddf.js"},{"name":"main-9be3900d5775c7a8cddf.js.map","publicPath":"/static/dist/main-9be3900d5775c7a8cddf.js.map","path":"/Users/bbx/envs/itsphere/itsphere_hakaton/static/dist/main-9be3900d5775c7a8cddf.js.map"}]}}
->>>>>>> f046e83fa4279442fc346363edf8e768d2967695
