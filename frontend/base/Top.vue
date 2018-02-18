@@ -81,7 +81,7 @@
     </nav>
 
 
-  <div v-if="categories" class="categories">
+  <div v-if="categories && categories.length>0" class="categories">
     <router-link v-for="cat in categories" :to="'/profile' + cat.it">
         {{cat.name}}
     </router-link>
@@ -97,6 +97,8 @@
 <script>
 import Vue from 'vue';
 import auth from '../auth'
+
+import {Category} from '../services/services';
 
 import {
     icon,

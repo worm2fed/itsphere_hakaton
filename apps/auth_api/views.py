@@ -55,8 +55,8 @@ class PageViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
         'list': PageListSerializer
     }
 
-    def get_queryset(self):
-        return self.queryset.prefetch_related('tags').order_by('-updated_at')
+    # def get_queryset(self):
+    #     return self.queryset.prefetch_related('tags').order_by('-updated_at')
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

@@ -42,7 +42,7 @@
 
         </div>
 
-          <div v-if="pages.length==0">...</div>
+          <div v-if="pages && pages.length==0">...</div>
           <div  class="article animated" v-for="page in pages" :id="'page_id_'+ page.id" v-bind:key="page">
             <div>
               <img class="post-image" :src="getFirstImage(page.body)" alt="">
@@ -75,14 +75,7 @@
                 </router-link>
               </div>
 
-                <div class="comments one-fourth">
-                  <i class="fa fa-comment-o"></i>&nbsp;{{page.comments.length}}&nbsp;{{page.comments.length | sayCommentsLength}}
-                </div>
-                <div class="comments one-fourth">
 
-                  <a v-on:click="share('vkontakte',getPageUrl(page), page.title,'IMG_PATH', 'page.body Mapala.net Everyone can travel'  )"> <i class="fa fa-share"></i> Рассказать</a>
-                  Поддержало {{page.voters.length}}
-                </div>
                 <div class="half">
                   <div class="button" v-on:click="vote(page)">
                     <i class="fa fa-dot-circle-o"></i>
@@ -138,7 +131,7 @@ import Right from '../base/Right.vue'
 import InputTag from 'vue-input-tag'
 import finance from '../services/finance'
 import MugenScroll from 'vue-mugen-scroll'
-import {Page} from '../services/services'
+import {Page, Category} from '../services/services'
 import {User} from '../services/services'
 var VueScrollTo = require('vue-scrollto');
 Vue.use(VueScrollTo)

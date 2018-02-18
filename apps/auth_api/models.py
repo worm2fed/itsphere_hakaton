@@ -85,6 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Page(models.Model):
     author = models.ForeignKey(User)
+    category = models.ForeignKey(Category, blank=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     is_published = models.BooleanField(default=False)
@@ -95,7 +96,6 @@ class Page(models.Model):
     title = models.CharField(max_length=1000)
     body = models.TextField()
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=False, null=False)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):

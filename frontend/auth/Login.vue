@@ -31,7 +31,7 @@
 
                   </div>
 
-                  <div v-if="errors && errors.hasOwnProperty(' non_field_errors')"  >
+                  <div v-if="errors && errors.hasOwnProperty('non_field_errors')"  >
                    Неправильный пароль или имя пользователя
 
                   </div>
