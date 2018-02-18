@@ -132,7 +132,7 @@ class Page(models.Model):
                     body=self.body,
                     author=settings.POST_AUTHOR,
                     # permlink=page.permlink,
-                    tags=self.get_tags(),
+                    # tags=self.get_tags(),
                     category=settings.POST_AUTHOR,
                     meta=self.metadata
                 )
