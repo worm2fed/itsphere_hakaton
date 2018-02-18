@@ -35,9 +35,10 @@
           <el-form-item label="Описание проекта" prop="body">
               <textarea v-on:keyup="mark_preview()" type="text" id="mark_edit" class="mark_edit" v-model="page.body"></textarea>
           </el-form-item>
-          <el-form-item label="Категория Проекта">
+          <el-form-item label="Категория Проекта" prop="category">
 
-            <select name="" id="" :model="page.category" v-if="categories && categories.length >0">
+            <select name="" id="" v-model="page.category" v-if="categories && categories.length >0">
+              <option value="">не выбрана</option>
               <option :value="cat.id" v-for="cat in categories" > {{cat.name}}</option>
             </select>
 
@@ -252,6 +253,7 @@ export default {
       ruleForm: {
           title: '',
           body: '',
+          category:'',
           selected_master_tag:'',
           region: '',
           date1: '',
@@ -272,6 +274,9 @@ export default {
         // ],
         body: [
           { required: true, message: 'Содержимое не может быть пустым', trigger: 'blur' }
+        ],
+        category: [
+          { required: true, message: 'Выберите категорию', trigger: 'blur' }
         ],
         master_tag_default: [
           { required: true, message: 'Выберите основную категорию', trigger: 'blur' }
