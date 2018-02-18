@@ -7,7 +7,8 @@ from rest_framework.decorators import list_route, detail_route
 from rest_framework.permissions import AllowAny
 
 from apps.auth_api.models import User, Tag, Page
-from apps.auth_api.serializers import UserSerializer, TagSerializer, PageSerializer, PageListSerializer
+from apps.auth_api.serializers import UserSerializer, TagSerializer, PageSerializer, PageListSerializer, \
+    CategorySerializer
 from apps.auth_api.utils import jwt_response_by_user
 from apps.common.utils import MultiSerializerViewSetMixin, _CustomPageViewSetPagination
 
@@ -64,3 +65,8 @@ class PageViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = CategorySerializer
