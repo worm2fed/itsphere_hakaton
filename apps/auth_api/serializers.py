@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.auth_api.models import User, Tag, Page
+from apps.auth_api.models import User, Tag, Page, Category
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class ShortUserSerializer(UserSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tag
+        model = Category
         fields = '__all__'
 
 
@@ -33,7 +33,10 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PageBaseSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
+<<<<<<< HEAD
     category = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+=======
+>>>>>>> refs/remotes/origin/master
     tags_info = TagSerializer(source='tags', read_only=True, many=True)
 
     class Meta:
