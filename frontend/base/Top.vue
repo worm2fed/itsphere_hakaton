@@ -79,6 +79,14 @@
 
       </div>
     </nav>
+
+
+  <div v-if="categories" class="categories">
+    <router-link v-for="cat in categories" :to="'/profile' + cat.it">
+        {{cat.name}}
+    </router-link>
+  </div>
+
   </div>
 
 </div>
@@ -97,6 +105,7 @@ import {
    data() {
      return {
        auth: auth,
+       categories:[],
      }
    },
    methods: {
@@ -114,11 +123,29 @@ import {
    },
    created() {
 		this.auth.user=auth.user
+    Category.get().then(res => {
+      this.categories = res.body
+    })
+
    },
  }
 </script>
 
 <style lang="scss">
+
+
+.categories{
+  background-color:#36d7b7;
+  display: table;
+  width: 100%;
+  a{
+    display: table-cell;
+    color: #fff;
+  }
+
+}
+
+
 .el-dropdown {
 
     color: #ffffff;

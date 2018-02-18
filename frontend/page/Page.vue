@@ -396,10 +396,12 @@ export default {
 	  var last_element = this.master_tag_default[this.master_tag_default.length - 1]
 	  this.page.master_tag = last_element
 
+    this.page.category=this.categories.filter((it)=> it.name== this.page.category)[0].id
+
 	  // TODO Разделить добавление и обновление на 2 роута
 	  if (this.$route.path=="/add/") {
-        this.page.category=this.categories.filter((it)=> it.name== this.page.category)[0].id
-        console.log( this.page.category)
+
+        // console.log(this.page.category)
 
   		  Page.save({permlink: this.page.permlink}, this.page).then(res => {
   			this.$message({type: 'success', message: 'сохранено'})
