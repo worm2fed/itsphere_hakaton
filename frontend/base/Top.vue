@@ -15,6 +15,7 @@
        ITSPHERE v0.7beta
       </router-link>
       <a href="https://golos.io/@itsphere"><div class="goloslink">Мы на Голосе</div></a>
+      <div class="description">Приложение по подбору специалистов для реализации IT проектов</div>
     </nav>
 
     <nav class="login-box">
@@ -172,7 +173,11 @@ import {
   background: #36d7b7;
   padding: 1%;
 }
-
+.description {
+  display: block;
+  margin-left: 4%;
+  margin-bottom: 1%;
+}
 .el-dropdown {
 
     color: #ffffff;
