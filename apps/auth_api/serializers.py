@@ -33,6 +33,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PageBaseSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
     tags_info = TagSerializer(source='tags', read_only=True, many=True)
 
     class Meta:
@@ -45,14 +46,14 @@ class PageBaseSerializer(serializers.ModelSerializer):
 
 class PageListSerializer(PageBaseSerializer):
     body = serializers.SerializerMethodField()
-    #author_avatar = serializers.SerializerMethodField()
+    author_avatar = serializers.SerializerMethodField()
 
     class Meta:
         model = Page
         fields = '__all__'
 
-    # def get_author_avatar(self, obj):
-    #     return obj.author.avatar_url
+    def get_author_avatar(self, obj):
+        return obj.author.avatar_url
 
     def get_body(self, obj):
         return obj.body[:100]
