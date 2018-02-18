@@ -33,10 +33,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PageBaseSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
-<<<<<<< HEAD
     category = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-=======
->>>>>>> refs/remotes/origin/master
     tags_info = TagSerializer(source='tags', read_only=True, many=True)
 
     class Meta:
