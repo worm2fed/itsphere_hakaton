@@ -35,7 +35,7 @@
           <el-form-item label="Описание проекта" prop="body">
               <textarea v-on:keyup="mark_preview()" type="text" id="mark_edit" class="mark_edit" v-model="page.body"></textarea>
           </el-form-item>
-          <el-form-item label="Категория">
+          <el-form-item label="Категория Проекта">
 
             <select name="" id="" :model="page.category" v-if="categories && categories.length >0">
               <option :value="cat.id" v-for="cat in categories" > {{cat.name}}</option>
