@@ -10,7 +10,7 @@
 
     <nav class="top-nav">
       <router-link class="ele logo-wrap" :to="'/'" >
-        <img class="logo" src="../assets/logo.jpg" alt="">
+        <img class="logo" src="../assets/logo.png" alt="">
 
        ITSPHERE
       </router-link>

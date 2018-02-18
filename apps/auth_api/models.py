@@ -124,7 +124,9 @@ class Page(models.Model):
             golos_tags.append('project')
         else:
             golos_tags.append('user')
-        return golos_tags + self.get_tags()
+        golos_tags = golos_tags + self.get_tags()
+        golos_tags = [tag.replace(' ', "-") for tag in golos_tags]
+        return golos_tags
 
     @property
     def metadata(self):

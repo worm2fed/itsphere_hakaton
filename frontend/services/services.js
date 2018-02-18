@@ -11,14 +11,7 @@ export const Comment = vue.resource('/api/comments{/id}/')
 export const Category = vue.resource('/api/category{/id}/')
 //export const Avatar = vue.resource('/api/users/{/id}/set_avatar/')
 
-export const MasterTag = vue.resource('/api/master-tags{/id}/', {}, {
-	'tree': {
-		method: 'GET', url: '/api/master-tags/tree/'
-	},
-	'ancestors': {
-		method: 'GET', url: '/api/master-tags{/id}/ancestors/'
-	}
-})
+
 
 export const Avatar = vue.resource('/api/users/{/id}/', {}, {
   'post': {
