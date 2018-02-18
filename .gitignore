@@ -17,6 +17,6 @@ apps/auth_api/migrations/
 .idea/
 backend/media/
 npm-debug.log*
+.gitignore
 
-
-webpack-stats.json
+# webpack-stats.json

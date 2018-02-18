@@ -62,6 +62,7 @@ class PageViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
+
         serializer.save(author=self.request.user)
 
 

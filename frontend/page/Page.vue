@@ -2,19 +2,7 @@
 <div>
   <Top></Top>
 
-  <gmap-map
-    :center="center"
-    :zoom="15"
-    :clickable="true"
-    :draggable="true">
-    <gmap-marker
-      v-for="m in markers"
-			:key="m.id"
-      :position="m.position"
-      :clickable="true"
-      :draggable="false"
-     ></gmap-marker>
-  </gmap-map>
+
   <div class="page_wrapper">
 <!--     <Right v-if="!this.editor_mode"></Right> -->
     <!--
@@ -39,9 +27,7 @@
           label-width="120px"
           class="demo-ruleForm">
           <el-form-item label="Адрес" prop="position_text">
-            <gmap-place-input v-model="page.position_text" :defaultPlace="page.position_text"
-              @place_changed="updatePlace">
-            </gmap-place-input>
+
           </el-form-item>
           <el-form-item label="Заголовок" prop="title">
             <el-input v-model="page.title"></el-input>
