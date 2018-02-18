@@ -132,7 +132,7 @@ class Page(models.Model):
         body = self.body
         if self.author.golos_link:
             body += "<br><br>Автор: " + str(self.author.golos_link)
-        body += "<br><br>Ищем специалистов по следующим компетенциям: " + str(self.author.golos_link)
+        body += "<br><br>Ищем специалистов по следующим компетенциям: "
         return body
 
     @property
