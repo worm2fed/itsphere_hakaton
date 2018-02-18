@@ -43,7 +43,7 @@
         </div>
 
           <div v-if="pages && pages.length==0">...</div>
-          <div  class="article animated" v-for="page in pages" :id="'page_id_'+ page.id" v-bind:key="page">
+          <div  class="article animated" v-for="page in pages" :id="'page_id_'+ page.id" v-bind:key="page.id">
             <div>
               <img class="post-image" :src="getFirstImage(page.body)" alt="">
             </div>
@@ -230,6 +230,12 @@ export default {
 
 			let params = {}
 			params.papage = this.nex_page
+
+      if(this.$route.params.cat){
+        //console.log('CA',this.$route.params.cat)
+        params.category=this.$route.params.cat
+      }
+
 			if (!this.nex_page) { return }
 			// Если на транице пользователя
 			let author = this.$route.params.author
@@ -254,7 +260,7 @@ export default {
         this.blog_view=false
       }
 			Page.get(params).then(res => {
-                this.pages = this.pages.concat(res.body.results)
+            this.pages = this.pages.concat(res.body.results)
         		this.loading = false
         		this.nex_page = res.body.next
 			})
@@ -760,8 +766,8 @@ article
     display: block;
     z-index: 10;
     position: relative;
-    width: 38%;
-    padding-left: 3%;
+      width: 60%;
+    margin: auto;
 
   }
   .loader{

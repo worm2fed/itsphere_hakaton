@@ -196,8 +196,9 @@ const routes = [
 		name: 'base'
   },
   {
-    path: '/tag:url(\[a-zA-Zа-яА-Я0-9\%-_/\]+)',
-    component: PageList
+    path: '/cat:cat(\[a-zA-Zа-яА-Я0-9\%-_/\]+)',
+    component: PageList,
+    name:'category'
   },
   {
     //path: '/:url(\[a-zA-Zа-яА-Я0-9\%-_/\]+/\[a-zA-Zа-яА-Я0-9\%-_/\]+)',
