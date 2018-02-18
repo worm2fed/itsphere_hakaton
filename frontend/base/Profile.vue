@@ -15,39 +15,20 @@
                         <el-form-item v-bind:label="$t('profile.username')">
                             <el-input v-model="auth.user.username"></el-input>
                         </el-form-item>
-                        <el-form-item v-bind:label="$t('base.password')">
-                            <el-input disabled v-model="auth.user.password"></el-input>
+
+                        <p>
+                          Укажите технологии, с которыми вам интересно работать
+                        </p>
+                        <el-form-item >
+                          <el-select v-model="auth.user.tags"  multiple placeholder="">
+                             <el-option
+                               v-for="tag in tags"
+                               :key="tag.id"
+                               :label="tag.name"
+                               :value="tag.id">
+                             </el-option>
+                          </el-select>
                         </el-form-item>
-                       <!--  <el-form-item label="Ключ постинга golos.io">
-                            <el-input v-model="auth.user.posting_key" placeholder="<SECRET>"></el-input>
-                        </el-form-item> -->
-
-
-                       <!--  <my-upload field="file"
-                            @crop-success="cropSuccess"
-                            @crop-upload-success="cropUploadSuccess"
-                            @crop-upload-fail="cropUploadFail"
-                            v-model="show"
-                            :width="300"
-                            :height="300"
-                            url="/api/users/b14ckb0x/set_avatar/"
-                            :params="params"
-                            :headers="headers"
-                            img-format="png">
-                        </my-upload> -->
-
-
-                        <img class="avatar" :src="auth.user.avatar">
-
-                        <div class="avatar-label" v-if="!auth.user.avatar">
-                            Загрузите аватар
-                        </div>
-                        <div class="avatar-label" v-if="auth.user.avatar">
-                            Обновите аватар
-                        </div>
-                        <input type="file" @change="onFileChange">
-
-
 
                         <el-form-item >
                             <el-button  @click="save()" type="primary"> Сохранить </el-button>
@@ -77,6 +58,7 @@ import auth from '../auth'
 import {User} from '../services/services'
 import {Avatar} from '../services/services'
 
+import {Tag} from '../services/services'
 
 
 
@@ -88,6 +70,7 @@ export default {
             auth: auth,
             show: true,
             avatar_file:null,
+            tags:null,
             image:null,
             params: {
                 token: '123456798',
@@ -103,22 +86,27 @@ export default {
         'Top':Top,
         // 'my-upload': myUpload
     },
+    created: function () {
+
+       Tag.get().then(res => this.tags = res.body)
+
+    },
 
     methods:{
       save() {
-		User.update({id: this.auth.user.id}, this.auth.user).then(res => {
-		  this.auth.user = res.body
-            this.$message({
-            type: 'info',
-                message: `Профиль обновлен`
-            })
-		}, res => {
-			this.error = res.data.error;
-			this.$message({
-			type: 'error',
-		    message: 'неправильный ключ'
-			});
-		})
+    		User.update({id: this.auth.user.id}, this.auth.user).then(res => {
+    		  this.auth.user = res.body
+          this.$message({
+          type: 'info',
+              message: `Профиль обновлен`
+          })
+    		}, res => {
+    			this.error = res.data.error;
+    			this.$message({
+    			type: 'error',
+    		    message: 'неправильный ключ'
+    			});
+    		})
       },
 
       saveAvatar(file) {
@@ -204,6 +192,9 @@ export default {
 }
 </script>
 <style  lang="scss">
+.el-icon-caret-top{
+  display: none!important;
+}
 .profile{
     .avatar-label{
         text-align: center;

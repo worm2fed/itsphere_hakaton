@@ -49,4 +49,4 @@ sorl-thumbnail-serializer-field==0.2.1
 sqlparse==0.2.2
 transliterate==1.9
 Unidecode==0.4.21
-steem-piston
+#steem-piston

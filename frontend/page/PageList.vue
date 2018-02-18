@@ -42,17 +42,15 @@
 
           <div v-if="pages && pages.length==0">...</div>
           <div  class="article animated" v-for="page in pages" :id="'page_id_'+ page.id" v-bind:key="page.id">
+            <h2>{{page.title}}</h2>
             <div>
-              <img class="post-image" :src="getFirstImage(page.body)" alt="">
+              <div class="post-image"  alt=""></div>
             </div>
             <img :src="page.miniature"/>
 
             <div class="post-preview">
               <div class="post-info">
-              <div class="avatar">
-                <img :src="page.author_ava" alt="" >
 
-              </div>
 
                   <div class="head">
                     <router-link :to=" '/'+ page.author"> {{page.author}}</router-link>
@@ -279,7 +277,7 @@ export default {
       catch(err){
 
       }
-      return 'https://s13.postimg.org/ror54hqyv/logo-small.png'
+      return '/static/dist/logo.jpg'
     },
     getAvatar(page){
     var username= page.author
@@ -506,7 +504,7 @@ body, html{
   display: block;
   clear: both;
   a{
-    color: #000!important;
+
     &:hover{
       text-decoration: none!important;
     }
@@ -651,6 +649,10 @@ body, html{
       width: 100%;
       height: 400px;
       object-fit: cover;
+      background-image: url("/static/dist/logo.jpg");
+      background-size: 5%;
+      opacity: 0.3;
+
     }
 
     .dummy-image{
