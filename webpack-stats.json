@@ -1,1 +1,1 @@
-{"status":"compiling","publicPath":"http://localhost:8001/static/dist/"}
+{"status":"done","publicPath":"http://localhost:8001/static/dist/","chunks":{"main":[{"name":"main-20eb94cb19a327c4f6be.js","publicPath":"http://localhost:8001/static/dist/main-20eb94cb19a327c4f6be.js","path":"/Users/bbx/envs/itsphere/itsphere_hakaton/static/dist/main-20eb94cb19a327c4f6be.js"}]}}
