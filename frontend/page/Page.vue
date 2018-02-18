@@ -140,7 +140,8 @@
               <div v-if="this.postdelay>0"> syncing...</div>
           </transition>
       </div> -->
-      <p>
+
+      <p v-if="!editor_mode">
         Теги проекта:
         <span v-for="tag in tags">
          <b> {{tag.name}}</b>
@@ -179,7 +180,7 @@ import Right from '../base/Right.vue'
 import auth from '../auth'
 
 import InputTag from 'vue-input-tag'
-import {Page, Tag,  Category} from '../services/services'
+import {Page, Tag, Category} from '../services/services'
 
 Vue.filter('arrstr', function (arr) {
   var result = ''
@@ -514,41 +515,7 @@ export default {
     this.initPage();
 
 	   Tag.get().then(res => this.tags = res.body)
-      //MasterTag.tree().then(res => this.treeData = res.body)
 
-  //Укажем вывбранный мастертег
-  //this.page.selected_master_tag=[this.page.dr_tag]
-
-
-    // if (data.page) {
-
-    //   // Если из джанги из шаблона при изначальном заходе пришли данные
-    //   //this.page=data.page
-    //   //delete(data)
-    // }
-    // else{
-
-    // }
-
-    // `this` points to the vm instance
-    /*
-    let position={}
-    navigator.geolocation.getCurrentPosition(function(position) {
-      // Get the coordinates of the current position.
-
-      this.position={'lat':position.coords.latitude,'lng':position.coords.longitude}
-      // position={'label':'YOU','position':{'lat':position.coords.latitude,'lng':position.coords.longitude} }
-      position = {
-          position:{'lat':position.coords.latitude,'lng':position.coords.longitude} ,
-         statusText: "Hauptgebäude der ETH Zürich",
-          draggable: true,
-
-        }
-      // this.markers=[]
-      this.markers.push(position)
-    }.bind(this));
-    */
-    //получим юзера
   },
 
   mounted()

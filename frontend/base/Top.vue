@@ -35,7 +35,7 @@
 
           <div  v-if="auth.isAuth">
               <vf-icon v-if="!auth.user.avatar" icon="user-circle" fixed/>
-              <img class="avatar" :src="auth.user.avatar" alt="">
+
               {{auth.user.username}} <i class="el-icon-caret-bottom el-icon--right"></i>
           </div>
 
@@ -137,8 +137,16 @@ import {
  }
 </script>
 
-<style lang="scss">
 
+
+<style>
+  .el-form-item__label{
+    padding: 7px!important;
+    line-height: 1em!important;
+  }
+
+</style>
+<style lang="scss">
 
 .categories{
   background-color:#36d7b7;
