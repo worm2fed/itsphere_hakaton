@@ -17,7 +17,7 @@
         <div>
 
         <div v-if="this.author" class="profile">
-          <img :src="author.avatar" alt="" class="author_avatar">
+
           <div class="username">
             @{{author.username}}
           </div>
