@@ -130,8 +130,9 @@ class Page(models.Model):
 
     def build_body_for_golos(self):
         body = self.body
-        body += "<br><br>Автор: " + str(self.author.golos_link)
-        body += "<br>Ищем специалистов по следующим компетенциям: " + str(self.author.golos_link)
+        if self.author.golos_link:
+            body += "<br><br>Автор: " + str(self.author.golos_link)
+        body += "<br><br>Ищем специалистов по следующим компетенциям: " + str(self.author.golos_link)
         return body
 
     @property
