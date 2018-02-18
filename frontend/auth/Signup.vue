@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <top></top>
-    <el-row>
+    <el-row class="login-panel">
         <el-col :span="8">
             <div class="grid-content bg-purple">&nbsp;</div>
         </el-col>

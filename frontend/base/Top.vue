@@ -149,7 +149,9 @@ import {
 
 </style>
 <style lang="scss">
-
+.login-panel{
+  margin-top: 20px;
+}
 .categories{
   background-color:#36d7b7;
   display: inline-block;
@@ -184,13 +186,9 @@ import {
 
     color: #ffffff;
 }
-.lang_switcher{
-  display: inline-block;
-  font-weight: bold;
-  padding: 0px 10px
-}
+
 #app{
-    padding-top: 5%;
+    padding-top: 15%;
 
 }
 .content-wrap{

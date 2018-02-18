@@ -174,7 +174,7 @@ const routes = [
            next()
         }
         else{
-           next('/')
+           next('/login')
         }
     },
     meta: { requiresAuth: true },
@@ -193,7 +193,7 @@ const routes = [
            next()
         }
         else{
-           next('/')
+           next('/login')
         }
     },
     meta: {
