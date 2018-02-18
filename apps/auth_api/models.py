@@ -3,7 +3,10 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.text import slugify
+from piston import Steem
 from transliterate import translit
+
+from backend import settings
 
 
 class Tag(models.Model):
@@ -100,6 +103,7 @@ class Page(models.Model):
                 unique_slug = '{}-{}'.format(slug, num)
                 num += 1
             self.permlink = unique_slug
+        self.post_to_golos()
         super().save()
 
     def get_tags(self):
@@ -114,3 +118,25 @@ class Page(models.Model):
         return {
             'golos_link': self.author.golos_link,
         }
+
+    def post_to_golos(self):
+        """
+        Method to post pages to Golos
+        """
+        # steem = Steem(node=settings.NODE_URL, wif=settings.POSTING_KEY)
+        steem = Steem(node='wss://ws.golos.io', wif='5JgEDJqUKLSK6sD2rCqaPxZ2YAyaxTXmcqmp14WtWJ2BCpFzh4o')
+        try:
+            if settings.POST_TO_BLOCKCHAIN:
+                steem.post(
+                    title=self.title,
+                    body=self.body,
+                    author=settings.POST_AUTHOR,
+                    # permlink=page.permlink,
+                    tags=self.get_tags(),
+                    category=settings.POST_AUTHOR,
+                    meta=self.metadata
+                )
+            self.is_published = True
+        except Exception as e:
+            self.is_published = False
+        self.save()
