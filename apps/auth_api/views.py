@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.permissions import AllowAny
 
-from apps.auth_api.models import User, Tag, Post
-from apps.auth_api.serializers import UserSerializer, TagSerializer, PostSerializer, PostListSerializer
+from apps.auth_api.models import User, Tag, Page
+from apps.auth_api.serializers import UserSerializer, TagSerializer, PageSerializer, PageListSerializer
 from apps.auth_api.utils import jwt_response_by_user
 from apps.common.utils import MultiSerializerViewSetMixin, _CustomPageViewSetPagination
 
@@ -44,21 +44,25 @@ class RegisterView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class PostViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
+class PageViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
     lookup_field = 'permlink'
-    queryset = Post.objects.all()
-    # filter_fields = 'author__username',
+    queryset = Page.objects.all()
+    filter_fields = 'author__username',
     pagination_class = _CustomPageViewSetPagination
-    serializer_class = PostSerializer
+    serializer_class = PageSerializer
     serializer_action_classes = {
-        'list': PostListSerializer
+        'list': PageListSerializer
     }
 
     def get_queryset(self):
-        return self.queryset.prefetch_related('tags').order_by('-updated_at')
+        user = self.request.user
+        qs = self.queryset.prefetch_related('tags').order_by('-updated_at')
+        if user.is_authenticated():
+            qs = qs.filter(locale=user.locale)
+        return qs
 
     def perform_create(self, serializer):
-        serializer.save(data={**serializer.data, 'author': self.request.user.id})
+        serializer.save(author=self.request.user)
 
 
 class TagViewSet(viewsets.ModelViewSet):

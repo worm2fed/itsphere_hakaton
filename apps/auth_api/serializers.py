@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from apps.auth_api.models import User, Tag, Post
-from apps.auth_api.utils import check_steam_key
+from apps.auth_api.models import User, Tag, Page
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,30 +25,34 @@ class TagSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PostBaseSerializer(serializers.ModelSerializer):
-    author = UserSerializer(many=False, read_only=True)
+class PageBaseSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField()
     tags_info = TagSerializer(source='tags', read_only=True, many=True)
 
     class Meta:
-        model = Post
+        model = Page
         fields = '__all__'
 
     def get_author(self, obj):
-        return obj.author.name
+        return obj.author.username
 
 
-class PostListSerializer(PostBaseSerializer):
+class PageListSerializer(PageBaseSerializer):
     body = serializers.SerializerMethodField()
+    author_avatar = serializers.SerializerMethodField()
 
     class Meta:
-        model = Post
+        model = Page
         fields = '__all__'
+
+    def get_author_avatar(self, obj):
+        return obj.author.avatar_url
 
     def get_body(self, obj):
         return obj.body[:100]
 
 
-class PostSerializer(PostBaseSerializer):
+class PageSerializer(PageBaseSerializer):
     class Meta:
-        model = Post
+        model = Page
         fields = '__all__'

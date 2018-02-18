@@ -10,7 +10,8 @@ from rest_framework_jwt.views import obtain_jwt_token
 from apps.auth_api import views
 
 router = DefaultRouter()
-router.register('posts', views.PostViewSet)
+# router.register('posts', views.PostViewSet)
+router.register('pages', views.PageViewSet)
 router.register('users', views.UserViewSet)
 router.register('tags', views.TagViewSet)
 
