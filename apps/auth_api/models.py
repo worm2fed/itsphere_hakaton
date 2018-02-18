@@ -140,8 +140,8 @@ class Page(models.Model):
                     body=self.body,
                     author=settings.POST_AUTHOR,
                     # permlink=page.permlink,
-                    # tags=self.get_tags(),
-                    category=settings.POST_AUTHOR,
+                    tags=self.get_tags(),
+                    category=seettings.POST_AUTHOR,
                     meta=self.metadata
                 )
             self.is_published = True
