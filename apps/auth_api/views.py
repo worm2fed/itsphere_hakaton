@@ -48,7 +48,7 @@ class RegisterView(APIView):
 class PageViewSet(MultiSerializerViewSetMixin, viewsets.ModelViewSet):
     lookup_field = 'permlink'
     queryset = Page.objects.all()
-    filter_fields = 'author__username',
+    filter_fields = ('category','author__username')
     pagination_class = _CustomPageViewSetPagination
     serializer_class = PageSerializer
     serializer_action_classes = {

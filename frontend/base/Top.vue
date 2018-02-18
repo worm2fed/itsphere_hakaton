@@ -82,9 +82,12 @@
 
 
   <div v-if="categories && categories.length>0" class="categories">
-    <router-link v-for="cat in categories" :to="'/profile' + cat.it">
-        {{cat.name}}
-    </router-link>
+    <div class="link" v-for="cat in categories" >
+      <router-link  :to="{ name: 'category', params: { cat: cat.id }} ">
+          {{cat.name}}
+      </router-link>
+    </div>
+
   </div>
 
   </div>
@@ -140,7 +143,7 @@ import {
   background-color:#36d7b7;
   display: table;
   width: 100%;
-  a{
+  .link {
     display: table-cell;
     color: #fff;
   }
