@@ -95,7 +95,7 @@ class Page(models.Model):
     title = models.CharField(max_length=1000)
     body = models.TextField()
 
-    categories = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
@@ -117,11 +117,8 @@ class Page(models.Model):
     def get_tags(self):
         return [t.name for t in self.tags.all()]
 
-    def get_categories(self):
-        return [t.name for t in self.categories.all()]
-
     def get_tags_for_golos(self):
-        return self.get_categories() + self.get_tags()
+        return [self.category.name] + self.get_tags()
 
     @property
     def metadata(self):
