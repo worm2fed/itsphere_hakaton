@@ -622,7 +622,7 @@ body, html{
 
     .post-image{
       width: 100%;
-      height: 400px;
+      height: 100px;
       object-fit: cover;
       background-image: url("/static/dist/logo.jpg");
       background-size: 5%;

@@ -10,7 +10,7 @@
               <div class="grid-content bg-purple-light">
                   <el-form ref="form"  label-width="120px">
                   <h2>{{$t('base.sitename')}} Вход</h2>
-                  <p v-if="error"> <i class="el-icon-warning"></i> Неправильный логин или пароль</p>
+                  <p v-if="errors"> <i class="el-icon-warning"></i> Неправильный логин или пароль</p>
                     <el-form-item v-bind:label="$t('profile.username')">
                       <el-input  placeholder="Введите имя пользователя" v-model="credentials.username"></el-input>
                     </el-form-item>

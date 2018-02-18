@@ -168,6 +168,15 @@ const routes = [
   {
     path: '/profile',
     component: Profile,
+    beforeEnter: (to, from, next) => {
+      //переписать!
+        if (auth.user.authenticated){
+           next()
+        }
+        else{
+           next('/')
+        }
+    },
     meta: { requiresAuth: true },
 
   },
@@ -178,6 +187,15 @@ const routes = [
     path: '/add/',
 		name: 'add',
     component: Page,
+    beforeEnter: (to, from, next) => {
+      //переписать!
+        if (auth.user.authenticated){
+           next()
+        }
+        else{
+           next('/')
+        }
+    },
     meta: {
       //requiresAuth: true,
       //requiresPostingKey: true

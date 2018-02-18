@@ -15,6 +15,7 @@
        ITSPHERE v0.7beta
       </router-link>
       <a href="https://golos.io/@itsphere"><div class="goloslink">Мы на Голосе</div></a>
+      <div class="description">Приложение по подбору специалистов для реализации IT проектов</div>
     </nav>
 
     <nav class="login-box">
@@ -34,9 +35,10 @@
           </div>
 
           <div  v-if="auth.isAuth">
-              <vf-icon v-if="!auth.user.avatar" icon="user-circle" fixed/>
+              <vf-icon  icon="user-circle" fixed/>
 
-              {{auth.user.username}} <i class="el-icon-caret-bottom el-icon--right"></i>
+               <i v-if="auth && auth.user" class="el-icon-caret-bottom el-icon--right">{{auth.user.username}}</i>
+
           </div>
 
         </span>
@@ -172,7 +174,12 @@ import {
   background: #36d7b7;
   padding: 1%;
 }
-
+.description {
+  display: block;
+  margin-left: 4%;
+  margin-bottom: 1%;
+  font-size: 20px;
+}
 .el-dropdown {
 
     color: #ffffff;
