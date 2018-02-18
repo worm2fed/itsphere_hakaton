@@ -20,25 +20,26 @@
     <div class="page">
 
       <div v-if="editor_mode">
+
+        <h1 class="edit_header">Добавление проекта</h1>
         <el-form
           :model="page"
           :rules="rules"
           ref="ruleForm"
           label-width="120px"
           class="demo-ruleForm">
-          <el-form-item label="Адрес" prop="position_text">
 
-          </el-form-item>
-          <el-form-item label="Заголовок" prop="title">
+          <el-form-item label="Название проекта" prop="title">
             <el-input v-model="page.title"></el-input>
           </el-form-item>
-          <el-form-item label="Описание" prop="body">
+          <el-form-item label="Описание проекта" prop="body">
               <textarea v-on:keyup="mark_preview()" type="text" id="mark_edit" class="mark_edit" v-model="page.body"></textarea>
           </el-form-item>
           <el-form-item label="Категория">
            <!--  <el-input :value="page.master_tag" v-model="ruleForm.selected_master_tag"></el-input> -->
-            <div class="block">
-              <el-cascader
+            <div class="block"  v-if="this.treeData">
+             <!--  <el-cascader
+
               :disabled="!this.editor_mode"
                 expand-trigger="hover"
                 :options="this.treeData"
@@ -47,7 +48,7 @@
 				:props="{value: 'id', label: 'name'}"
                 placeholder="Выберите категорию"
 				v-model="master_tag_default">
-              </el-cascader>
+              </el-cascader> -->
             </div>
           </el-form-item>
 
@@ -667,6 +668,17 @@ p{
     width: 100%;
     max-width: 100%;
     height: auto;
+  }
+  .edit_header{
+      background-color: #36d7b7;
+      color: #fff;
+
+      display: block;
+      width: 100%;
+      height: 1.5em;
+      padding-left: 20px;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+      box-sizing: border-box;
   }
   .page_editor{
     width: 50%;

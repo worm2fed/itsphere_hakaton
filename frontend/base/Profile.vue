@@ -18,19 +18,11 @@
                         <el-form-item v-bind:label="$t('base.password')">
                             <el-input disabled v-model="auth.user.password"></el-input>
                         </el-form-item>
-                        <el-form-item label="Ключ постинга golos.io">
+                       <!--  <el-form-item label="Ключ постинга golos.io">
                             <el-input v-model="auth.user.posting_key" placeholder="<SECRET>"></el-input>
-                        </el-form-item>
-                        <el-form-item  v-bind:label="$t('base.language')">
-                          <el-select v-model="auth.user.locale" placeholder="">
-                             <el-option
-                               v-for="item in [{label:'Русский', value:'ru'},{label:'English', value:'en'}]"
-    													 :key="null"
-                               :label="item.label"
-                               :value="item.value">
-                             </el-option>
-                           </el-select>
-                        </el-form-item>
+                        </el-form-item> -->
+
+
                        <!--  <my-upload field="file"
                             @crop-success="cropSuccess"
                             @crop-upload-success="cropUploadSuccess"

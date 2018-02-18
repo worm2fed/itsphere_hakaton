@@ -6,7 +6,7 @@ export default{
         password:"Password",
         save:"Save",
         language:"Language",
-        sitename:"MAPALA.NET",
+        sitename:"ITSphere",
         logout:"Logout",
         author:"Author"
       },
@@ -28,7 +28,7 @@ export default{
         password:"Пароль",
         save:"Сохранить",
         language:"Язык",
-        sitename:"MAPALA.NET",
+        sitename:"ITSphere",
         logout:"Выйти",
         author:"Автор"
       },

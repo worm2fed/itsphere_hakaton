@@ -1,6 +1,7 @@
 ™<template>
-    <div class="">
+    <div >
         <top></top>
+        <div class="content-wrap">
         <el-row>
           <el-col :span="8">
               <div class="grid-content bg-purple">&nbsp;</div>
@@ -17,15 +18,32 @@
                      <el-input type="password" placeholder="Введите пароль"  v-model="credentials.password"></el-input>
                     </el-form-item>
                     <el-form-item >
-                      <el-button  @click="submit()" type="primary">Войти</el-button>
+                      <el-button  v-on:keyup.enter="submit()"  @click="submit()" type="primary">Войти</el-button>
                     </el-form-item>
                   </el-form>
+
+                  <div v-if="errors && errors.hasOwnProperty('username')"  >
+                   Неправильное имя пользователя
+
+                  </div>
+                  <div v-if="errors && errors.hasOwnProperty('password')"  >
+                   Неправильный пароль
+
+                  </div>
+
+                  <div v-if="errors && errors.hasOwnProperty(' non_field_errors')"  >
+                   Неправильный пароль или имя пользователя
+
+                  </div>
+
+
               </div>
           </el-col>
           <el-col :span="8">
               <div class="grid-content bg-purple">&nbsp;</div>
           </el-col>
         </el-row>
+        </div>
     </div>
 </template>
 
@@ -42,7 +60,7 @@ export default {
 					username: '',
 					password: ''
 				},
-				error: ''
+				errors: ''
 			}
 	},
 		methods: {
@@ -51,7 +69,9 @@ export default {
 					username: this.credentials.username,
 					password: this.credentials.password
 				}
+
 				auth.login(this, credentials, {name: 'base'})
+
 			}
 		},
 		components: {
@@ -62,6 +82,11 @@ export default {
 <style lang="scss">
     .el-form h2{
         text-align: center;
+    }
+    .el-button--primary{
+        background-color: #36d7b7!important;
+        color: #fff;
+        box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
     }
 </style>
 
