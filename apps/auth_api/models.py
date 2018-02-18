@@ -128,6 +128,12 @@ class Page(models.Model):
         golos_tags = [tag.replace(' ', "-") for tag in golos_tags]
         return golos_tags
 
+    def build_body_for_golos(self):
+        body = self.body
+        body += "<br><br>Автор: " + str(self.author.golos_link)
+        body += "<br>Ищем специалистов по следующим компетенциям: " + str(self.author.golos_link)
+        return body
+
     @property
     def metadata(self):
         """
@@ -135,6 +141,7 @@ class Page(models.Model):
         :return: dict
         """
         return {
+            'link_to_post': self.link,
             'user_golos_link': self.author.golos_link,
             'tags': self.get_tags_for_golos()
         }
@@ -149,7 +156,7 @@ class Page(models.Model):
             if settings.POST_TO_BLOCKCHAIN:
                 steem.post(
                     title=self.title,
-                    body=self.body,
+                    body=self.build_body_for_golos(),
                     author=settings.POST_AUTHOR,
                     category=settings.POST_AUTHOR,
                     meta=self.metadata
