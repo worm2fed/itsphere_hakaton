@@ -141,11 +141,18 @@ import {
 
 .categories{
   background-color:#36d7b7;
-  display: table;
+  display: inline-block;
   width: 100%;
   .link {
-    display: table-cell;
+    display: inline-block;
     color: #fff;
+    margin-left: 10px;
+    a {
+      color: #fff;
+      &:hover{
+        color: #000;
+      }
+    }
   }
 
 }

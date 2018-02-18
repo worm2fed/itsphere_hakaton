@@ -58,7 +58,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('active', default=True)
     is_staff = models.BooleanField('manager', default=False)
 
-    is_employer = models.BooleanField('employer', default=False)
     is_team = models.BooleanField(default=False)
 
     tags = models.ManyToManyField(Tag, blank=True)
@@ -98,6 +97,8 @@ class Page(models.Model):
 
     tags = models.ManyToManyField(Tag, blank=True)
 
+    is_project = models.BooleanField('employer', default=False)
+
     def __str__(self):
         return self.title
 
@@ -111,19 +112,21 @@ class Page(models.Model):
                 unique_slug = '{}-{}'.format(slug, num)
                 num += 1
             self.permlink = unique_slug
-        self.post_to_golos()
+        # self.post_to_golos()
         super().save()
 
     def get_tags(self):
         return [t.name for t in self.tags.all()]
 
     def get_tags_for_golos(self):
-        golos_tags = [self.category.name]
-        if self.author.is_employer:
+        golos_tags = [settings.POST_AUTHOR, self.category.name]
+        if self.is_project:
             golos_tags.append('project')
         else:
             golos_tags.append('user')
-        return golos_tags + self.get_tags()
+        golos_tags = golos_tags + self.get_tags()
+        golos_tags = [tag.replace(' ', "-") for tag in golos_tags]
+        return golos_tags
 
     @property
     def metadata(self):
@@ -132,7 +135,8 @@ class Page(models.Model):
         :return: dict
         """
         return {
-            'golos_link': self.author.golos_link,
+            'user_golos_link': self.author.golos_link,
+            'tags': self.get_tags_for_golos()
         }
 
     def post_to_golos(self, is_repeat_request=False):
@@ -147,13 +151,12 @@ class Page(models.Model):
                     title=self.title,
                     body=self.body,
                     author=settings.POST_AUTHOR,
-                    # permlink=page.permlink,
-                    tags=self.get_tags_for_golos(),
                     category=settings.POST_AUTHOR,
                     meta=self.metadata
                 )
             self.is_published = True
-        except Exception:
+        except Exception as e:
+            print(e)
             self.is_published = False
         if is_repeat_request:
             self.save()
