@@ -142,7 +142,6 @@ class Page(models.Model):
         :return: dict
         """
         return {
-            'link_to_post': self.link,
             'user_golos_link': self.author.golos_link,
             'tags': self.get_tags_for_golos()
         }
