@@ -27,7 +27,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class PostBaseSerializer(serializers.ModelSerializer):
-    author = serializers.SerializerMethodField()
+    author = UserSerializer(many=False, read_only=True)
     tags_info = TagSerializer(source='tags', read_only=True, many=True)
 
     class Meta:
