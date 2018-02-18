@@ -190,7 +190,7 @@ import {
   padding: 0px 10px
 }
 #app{
-    padding-top: 14%;
+    padding-top: 5%;
 
 }
 .content-wrap{

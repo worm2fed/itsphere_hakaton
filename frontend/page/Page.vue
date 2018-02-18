@@ -528,6 +528,9 @@ export default {
 
 
 <style lang="scss">
+$mobile: "all and (max-width: 50em)";
+$desktop: "all and (min-width: 50em)";
+
 .el-icon-caret-top{
   display: none!important;
 }
@@ -570,9 +573,16 @@ p{
 .page_wrapper{
 
   position: relative;
- width: 80%;
+  @media #{$desktop} {
+    width: 80%;
+  }
+  @media #{$mobile} {
+    width: 100%;
+  }
  padding-top: 2%;
- margin: auto;
+
+ margin: 69px auto;
+
   aside > li {
       margin-top: -240px!important;
   }

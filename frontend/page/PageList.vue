@@ -40,6 +40,21 @@
 
         </div>
 
+
+        <div class="half">
+          <p>
+            Создать заявку на поиск исполнителей и команд для разработки и развития Вашего проекта.
+          </p>
+          <router-link :to="'/add/'" class="button"> Создать проект</router-link>
+        </div>
+        <div class="half">
+          <p>
+            Получать профильные заявки на работу
+          </p>
+          <router-link class="button" :to="'/profile'">Получить работу</router-link>
+        </div>
+
+
           <div v-if="pages && pages.length==0">...</div>
           <div  class="article animated" v-for="page in pages" :id="'page_id_'+ page.id" v-bind:key="page.id">
             <h2>{{page.title}}</h2>
@@ -440,13 +455,18 @@ $blue: #6d9ee1;
 
 }
 .button{
-  background-color: $blue;
-  color: #e5e5e5;
+  background-color: #36d7b7;
+  color: #fff!important;
   text-align: center;
   padding: 10px;
   border-radius: 4px;
+
+  width: 50%;
+  margin: auto;
+  display: block;
+
   &:hover{
-    color: #fff;
+    color: #000;
   }
 }
 .voter-list{
@@ -473,6 +493,12 @@ body, html{
   width:50%;
   display: inline-block;
   float: left;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 10px;
+  p {
+    min-height: 60px;
+  }
 }
 .full{
   width: 100%;
@@ -684,6 +710,9 @@ article
 </style>
 
 <style lang="scss" scoped>
+$mobile: "all and (max-width: 50em)";
+$desktop: "all and (min-width: 50em)";
+
 .voter-list{
  width: 48%;
     position: fixed!important;
@@ -744,7 +773,12 @@ article
     display: block;
     z-index: 10;
     position: relative;
+    @media #{$desktop} {
       width: 60%;
+    }
+    @media #{$mobile} {
+      width: 100%;
+    }
     margin: auto;
 
   }

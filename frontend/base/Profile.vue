@@ -196,6 +196,7 @@ export default {
   display: none!important;
 }
 .profile{
+    margin-top: 100px;
     .avatar-label{
         text-align: center;
     }
