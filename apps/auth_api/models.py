@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, max_length=500)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
-    name = models.CharField(max_length=200, blank=False)
+    name = models.CharField(max_length=200, blank=True)
 
     is_active = models.BooleanField('active', default=True)
     is_staff = models.BooleanField('manager', default=False)
@@ -52,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_team = models.BooleanField(default=False)
 
     tags = models.ManyToManyField(Tag, blank=True)
-    golos_link = models.URLField(blank=False)
+    golos_link = models.URLField(blank=True)
 
     objects = UserManager()
 
@@ -73,39 +73,36 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.name
 
 
-class Post(models.Model):
-    """
-    This model needed to easy handle posts. We have to kinds of post: project and worker. This models simply
-    stores foreign key to post wanted to post
-    """
-    author = models.ForeignKey('User', on_delete=models.CASCADE)
-    is_published = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
+class Page(models.Model):
+    author = models.ForeignKey(User)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    is_published = models.BooleanField(default=False)
+
     permlink = models.SlugField(unique=True, null=True, max_length=255)
-    title = models.CharField(max_length=200, blank=False)
-    body = models.TextField(blank=False)
+    parent_permlink = models.CharField(max_length=1000, blank=True, null=True)
+
+    title = models.CharField(max_length=1000)
+    body = models.TextField()
+
     tags = models.ManyToManyField(Tag, blank=True)
 
+    def __str__(self):
+        return self.title
+
     def save(self, *args, **kwargs):
-        # Check is permlink was set
         if not self.permlink:
+            num = 1
             slug = slugify(translit(self.title, 'ru', reversed=True))
             unique_slug = slug
 
-            num = 1
-            # Prepare slug
-            while self.objects.filter(permlink=unique_slug).exists():
+            while Page.objects.filter(permlink=unique_slug).exists():
                 unique_slug = '{}-{}'.format(slug, num)
                 num += 1
             self.permlink = unique_slug
         super().save()
 
     def get_tags(self):
-        """
-        Helper to get post tags
-        :return: list
-        """
         return [t.name for t in self.tags.all()]
 
     @property
