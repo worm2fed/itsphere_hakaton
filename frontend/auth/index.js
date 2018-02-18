@@ -15,7 +15,9 @@ export default {
 
       if (redirect) { context.$router.push(redirect) }
 
-    }, res => { context.errors = res.body })
+    }, res => {
+     context.errors = res.body
+    })
   },
 
   signup(context, creds, redirect) {

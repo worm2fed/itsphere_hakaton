@@ -4,11 +4,13 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css">
+
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
 
     <nav class="top-nav">
       <router-link class="ele logo-wrap" :to="'/'" >
-        <img class="logo" src="../assets/logo.png" alt="">
+        <img class="logo" src="../assets/logo.jpg" alt="">
 
        ITSPHERE
       </router-link>
@@ -61,7 +63,7 @@
           </router-link>
 
 
-          <el-dropdown-item disabled>ICO</el-dropdown-item>
+
           <el-dropdown-item divided v-if="auth.isAuth">
               <div @click="logout()" >
                 {{ $t("base.logout") }}
@@ -127,7 +129,25 @@ import {
   padding: 0px 10px
 }
 #app{
-    padding-top: 2%;
+    padding-top: 5%;
+
+}
+.content-wrap{
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+h2{
+    background-color: #36d7b7;
+    color: #fff;
+
+    display: block;
+    width: 100%;
+    height: 1.5em;
+    padding-left: 20px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+    box-sizing: border-box;
 }
 
 .ele{
@@ -138,7 +158,7 @@ import {
   text-align: center;
   margin-bottom: 5px;
   cursor: pointer;
-  font-family: 'Helvetica','Verdana','Arial'
+    text-decoration: none;
 }
 .el-dropdown{
     cursor: pointer;
@@ -149,11 +169,10 @@ import {
   display: table;
   z-index: 12;
   width: 100%;
-  color: #f6f7f7;
-
+  color: #fff;
 
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7abcff+0,60abf8+44,4096ee+100;Blue+3D+%2314 */
-  background-color: #495565;
+  background-color: #000;
   border-bottom: #080808;
   padding: 8px 0px 5px 0px;
 
@@ -164,16 +183,27 @@ import {
   }
 
   .login-box{
-    display: inline-block;
+    display: table;
     float: left;
     width: 25%;
     color: #fff;
+    margin-top: 1em;
+
+    a {
+        display: table-cell;
+        color: #fff;
+        text-decoration: none;
+    }
 
   }
   .top-nav{
     display: inline-block;
     width: 75%;
     float: left;
+    a{
+        color: #fff;
+        text-decoration: none;
+    }
     .ele{
       font-weight: normal;
     }
@@ -184,13 +214,14 @@ import {
 
 .top .logo-wrap{
   padding: 1px 10px;
+  font-size: 25px;
 }
 .top .ele b{
 
   vertical-align: middle;
 }
 .logo{
-  width: 30px;
+  width: 50px;
   height: auto;
   font-weight: normal;
   vertical-align: middle;
