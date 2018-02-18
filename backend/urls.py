@@ -14,7 +14,7 @@ router = DefaultRouter()
 router.register('pages', views.PageViewSet)
 router.register('users', views.UserViewSet)
 router.register('tags', views.TagViewSet)
-
+router.register('category', views.CategoryViewSet)
 
 urlpatterns = []
 

@@ -36,9 +36,14 @@
               <textarea v-on:keyup="mark_preview()" type="text" id="mark_edit" class="mark_edit" v-model="page.body"></textarea>
           </el-form-item>
           <el-form-item label="Категория">
+
+            <select name="" id="" :model="page.category" v-if="categories && categories.length >0">
+              <option :value="cat.id" v-for="cat in categories" > {{cat.name}}</option>
+            </select>
+
            <!--  <el-input :value="page.master_tag" v-model="ruleForm.selected_master_tag"></el-input> -->
-            <div class="block"  v-if="this.treeData">
-             <!--  <el-cascader
+           <!--  <div class="block"  v-if="this.treeData">
+              <el-cascader
 
               :disabled="!this.editor_mode"
                 expand-trigger="hover"
@@ -48,8 +53,8 @@
 				:props="{value: 'id', label: 'name'}"
                 placeholder="Выберите категорию"
 				v-model="master_tag_default">
-              </el-cascader> -->
-            </div>
+              </el-cascader>
+            </div> -->
           </el-form-item>
 
           <!--
@@ -209,7 +214,7 @@ import Right from '../base/Right.vue'
 import auth from '../auth'
 import Comments from './Comments.vue'
 import InputTag from 'vue-input-tag'
-import {Page, MasterTag, Tag, Comment} from '../services/services'
+import {Page, MasterTag, Tag, Comment, Category} from '../services/services'
 
 Vue.filter('arrstr', function (arr) {
   var result = ''
@@ -238,6 +243,7 @@ export default {
       mark_view:"",
       postdelay:null,
       error:false,
+      categories:[],
       //*INPUT TAG REFACTOR*//
       inputVisible: false,
       inputValue: '',
@@ -352,12 +358,17 @@ export default {
           status:0,
           position_text:'',
           selected_master_tag:[],
-		  images: [],
+		      images: [],
         }
         this.mark_preview()
         this.editor_mode=true
         this.new_page_mode=true
         this.page.status=0
+
+        Category.get().then(res => {
+          this.categories = res.body
+        })
+
       } else {
 					Page.get({permlink: this.$route.params.permlink}).then(res => {
 						this.page = res.body
@@ -365,6 +376,7 @@ export default {
 						Comment.get({page: this.page.id}).then(res => {
 							this.comments = res.body
 						})
+
 
 						this.setPlace()
 						this.setMasterTag()

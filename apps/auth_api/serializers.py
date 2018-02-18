@@ -45,14 +45,14 @@ class PageBaseSerializer(serializers.ModelSerializer):
 
 class PageListSerializer(PageBaseSerializer):
     body = serializers.SerializerMethodField()
-    author_avatar = serializers.SerializerMethodField()
+    #author_avatar = serializers.SerializerMethodField()
 
     class Meta:
         model = Page
         fields = '__all__'
 
-    def get_author_avatar(self, obj):
-        return obj.author.avatar_url
+    # def get_author_avatar(self, obj):
+    #     return obj.author.avatar_url
 
     def get_body(self, obj):
         return obj.body[:100]

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.permissions import AllowAny
 
-from apps.auth_api.models import User, Tag, Page
+from apps.auth_api.models import User, Tag, Page, Category
 from apps.auth_api.serializers import UserSerializer, TagSerializer, PageSerializer, PageListSerializer, \
     CategorySerializer
 from apps.auth_api.utils import jwt_response_by_user
@@ -68,5 +68,5 @@ class TagViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Tag.objects.all()
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
