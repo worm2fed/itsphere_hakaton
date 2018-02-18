@@ -117,6 +117,12 @@ class Page(models.Model):
     def get_tags(self):
         return [t.name for t in self.tags.all()]
 
+    def get_categories(self):
+        return [t.name for t in self.categories.all()]
+
+    def get_tags_for_golos(self):
+        return self.get_categories() + self.get_tags()
+
     @property
     def metadata(self):
         """
@@ -140,8 +146,8 @@ class Page(models.Model):
                     body=self.body,
                     author=settings.POST_AUTHOR,
                     # permlink=page.permlink,
-                    tags=self.get_tags(),
-                    category=seettings.POST_AUTHOR,
+                    tags=self.get_tags_for_golos(),
+                    category=settings.POST_AUTHOR,
                     meta=self.metadata
                 )
             self.is_published = True
