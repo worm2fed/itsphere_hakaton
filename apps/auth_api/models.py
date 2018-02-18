@@ -95,7 +95,7 @@ class Page(models.Model):
     title = models.CharField(max_length=1000)
     body = models.TextField()
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=False, null=False)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
