@@ -118,7 +118,12 @@ class Page(models.Model):
         return [t.name for t in self.tags.all()]
 
     def get_tags_for_golos(self):
-        return [self.category.name] + self.get_tags()
+        golos_tags = [self.category.name]
+        if self.author.is_employer:
+            golos_tags.append('project')
+        else:
+            golos_tags.append('user')
+        return golos_tags + self.get_tags()
 
     @property
     def metadata(self):
