@@ -12,8 +12,9 @@
       <router-link class="ele logo-wrap" :to="'/'" >
         <img class="logo" src="../assets/logo.png" alt="">
 
-       ITSPHERE
+       ITSPHERE v0.7beta
       </router-link>
+      <a href="https://golos.io/@itsphere"><div class="goloslink">Мы на Голосе</div></a>
     </nav>
 
     <nav class="login-box">
@@ -166,6 +167,11 @@ import {
 
 }
 
+.goloslink {
+  display: inline-block;
+  background: #36d7b7;
+  padding: 1%;
+}
 
 .el-dropdown {
 
