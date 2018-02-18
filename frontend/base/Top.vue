@@ -149,6 +149,7 @@ import {
     margin-left: 10px;
     a {
       color: #fff;
+      text-decoration:none;
       &:hover{
         color: #000;
       }
