@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import auth from './auth'
-import finance from './services/finance/'
 import VueRouter from 'vue-router'
 import Signup from './auth/Signup.vue'
 import Login from './auth/Login.vue'
 import Profile from './base/Profile.vue'
 import Page from './page/Page.vue'
 import PageList from './page/PageList.vue'
-import Preico from './preico/PreIco.vue'
 import ElementUI from 'element-ui'
 import VueCookie from 'vue-cookie'
 import VueResource from 'vue-resource'
@@ -172,11 +170,6 @@ const routes = [
     component: Profile,
     meta: { requiresAuth: true },
 
-  },
-
-  {
-    path: '/ico',
-    component: Preico
   },
 
   // { path: '/', component: PageList },
