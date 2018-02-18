@@ -1,1 +1,1 @@
-{"status":"done","publicPath":"/static/dist/","chunks":{"main":[{"name":"main-9be3900d5775c7a8cddf.js","publicPath":"/static/dist/main-9be3900d5775c7a8cddf.js","path":"/Users/bbx/envs/itsphere/itsphere_hakaton/static/dist/main-9be3900d5775c7a8cddf.js"},{"name":"main-9be3900d5775c7a8cddf.js.map","publicPath":"/static/dist/main-9be3900d5775c7a8cddf.js.map","path":"/Users/bbx/envs/itsphere/itsphere_hakaton/static/dist/main-9be3900d5775c7a8cddf.js.map"}]}}
+{"status":"compiling","publicPath":"http://localhost:8001/static/dist/"}

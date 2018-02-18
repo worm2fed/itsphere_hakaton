@@ -418,31 +418,6 @@ export default {
   },
   created: function () {
     // Get the coordinates of the current position.
-    let position={}
-    navigator.geolocation.getCurrentPosition(function(position) {
-
-      // console.log('position.coords',position.coords)
-      this.position={'lat':position.coords.latitude,'lng':position.coords.longitude}
-      // position={'label':'YOU','position':{'lat':position.coords.latitude,'lng':position.coords.longitude} }
-      position = {
-        position:{
-          'lat':position.coords.latitude,
-          'lng':position.coords.longitude
-        },
-        statusText: "USER",
-        draggable: true,
-      }
-      //this.markers=[]
-      //this.user_marker=position
-
-    // this.center=this.position
-
-     auth.user.position=position
-     // this.center={'lat':parseFloat(position.lat),'lng':parseFloat(position.lng)}
-     this.fitBounds()
-    }.bind(this));
-
-    finance.getCurrency(this)
 
     this.fetchPage()
   },
