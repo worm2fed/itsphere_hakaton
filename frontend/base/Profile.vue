@@ -16,6 +16,11 @@
                             <el-input v-model="auth.user.username"></el-input>
                         </el-form-item>
 
+                        <p v-if="error"><i class="el-icon-warning"></i>Ошибка</p>
+                        <el-form-item v-bind:label="$t('Ссылка на профиль в Голос')">
+                            <el-input v-model="auth.user.golos_link"></el-input>
+                        </el-form-item>
+
                         <p>
                           Укажите технологии, с которыми вам интересно работать
                         </p>
