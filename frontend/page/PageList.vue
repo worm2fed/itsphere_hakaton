@@ -10,9 +10,9 @@
 
     <div class="wrapper">
       <div class="page-list">
-        <div v-if="loading" class="loader">
+        <!-- <div v-if="loading" class="loader">
           <i class="el-icon-loading"></i>
-        </div>
+        </div> -->
         <!-- <transition-group name="fade" tag="ul"> -->
         <div>
 
@@ -22,9 +22,7 @@
             @{{author.username}}
           </div>
           <div v-if="self_blog_view==true" class="self_blog_view_buttons">
-            <div class="half">
-              <i class="fa fa-bitcoin"></i> Кошелек
-            </div>
+
             <div class="half">
 
               <router-link :to="'/profile'">
@@ -57,7 +55,8 @@
               </div>
 
                   <div class="head">
-                    <router-link :to=" '/'+ page.author"> {{page.author}}</router-link>  <i class="fa fa-map-marker" v-if="page.position_text"> {{page.position_text}}</i>
+                    <router-link :to=" '/'+ page.author"> {{page.author}}</router-link>
+
                     <br/>
                     <i class="fa fa-date" ></i>{{page.created_at || page.updated_at | formatDate}}
                     <br/>
@@ -66,22 +65,20 @@
 
 
               <div class="bottom">
-              <div class="full">
-                <router-link :to="{name: 'page', params: {user: page.author, permlink: page.permlink} }">
-                  <h2>{{page.title}}</h2>
-                  <span>
-                    {{page.body.replace(/<\/?[^>]+(>|$)/g, "")}}
-                  </span>
-                </router-link>
-              </div>
+                <div class="full">
+
+                    {{page.title}}
+                    <span>
+                      {{page.body.replace(/<\/?[^>]+(>|$)/g, "")}}
+                    </span>
+                    <br>
+                    <router-link class="open_proj" :to="{name: 'page', params: {user: page.author, permlink: page.permlink} }">
+                      Смотреть проект
+                    </router-link>
 
 
-                <div class="half">
-                  <div class="button" v-on:click="vote(page)">
-                    <i class="fa fa-dot-circle-o"></i>
-                    <span>Поддержать</span> | <i class="fa fa-rub"></i> {{page.total_pending_payout_value}}
-                  </div>
                 </div>
+
 
               </div>
 
@@ -102,13 +99,7 @@
                <!-- {{$t('page.upvoters')}}  -->
                 <div ></div>
               </div>
-              <!-- <div class="voters">
-                <div class="voter" v-for="voter in page.voters" >
-                    <div v-on:click="navigate(voter.username)">
-                     {{voter.username}}
-                    </div>
-                </div>
-              </div> -->
+
 
             </div>
           </div>
@@ -466,7 +457,15 @@ export default {
 <style lang="scss">
 
 $blue: #6d9ee1;
+.open_proj{
+  background-color: #36d7b7;
+  color: #fff!important;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+  padding: 10px 5px;
+  display: inline-block;
 
+
+}
 .button{
   background-color: $blue;
   color: #e5e5e5;
@@ -530,6 +529,8 @@ body, html{
     text-align: center;
   }
 }
+
+
 /*end Microframework*/
 
 

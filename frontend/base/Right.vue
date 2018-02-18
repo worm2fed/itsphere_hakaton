@@ -9,7 +9,6 @@
 <script>
 import Vue from 'vue';
 import Item from './Item.vue'
-import {MasterTag} from '../services/services'
 
 export default {
   name: 'right',
@@ -19,7 +18,7 @@ export default {
     }
   },
   created: function() {
-    MasterTag.tree().then(res => this.tree = res.body)
+
   },
 	components: {
 		'Item': Item,

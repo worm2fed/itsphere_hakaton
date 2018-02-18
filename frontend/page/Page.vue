@@ -4,6 +4,25 @@
 
 
   <div class="page_wrapper">
+
+
+
+    <div class="table">
+      <div v-if="page_editable()">режим</div><br>
+      <el-switch
+        v-if="page_editable()"
+        v-model="editor_mode"
+        off-color="#ff4949" on-color="#13ce66"
+        on-text="РЕДАКТОР"
+        off-text="ПРОСМОТР "
+        :width=120>
+      </el-switch>
+
+
+
+    </div>
+
+
 <!--     <Right v-if="!this.editor_mode"></Right> -->
     <!--
     <div class="blockchain"> {{page.blockchain}} </div>
@@ -58,6 +77,22 @@
             </div> -->
           </el-form-item>
 
+         <el-form-item label="Теги проекта" prop="tags">
+
+
+          <el-select v-model="page.tags" :disabled="!editor_mode" multiple placeholder="Укажите теги проекта">
+            <el-option
+              v-for="tag in tags"
+              :key="tag.id"
+              :label="tag.name"
+              :value="tag.id">
+            </el-option>
+          </el-select>
+          <p  v-if="editor_mode">
+            Отниситесь к этому полю внимательно, укажите технологии, языки программирования итд.
+          </p>
+        </el-form-item>
+
           <!--
 		  <input type="file" @change="sync">
           <el-button @click="post_image()">Загрузить фото</el-button>
@@ -82,16 +117,16 @@
            <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
            </el-upload> -->
 
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">Опубликовать</el-button>
+          <el-button @click="resetForm('ruleForm')">Очистить</el-button>
+        </el-form-item>
 
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">Опубликовать</el-button>
-            <el-button @click="resetForm('ruleForm')">Очистить</el-button>
-          </el-form-item>
         </el-form>
     </div>
 
 
-      <h1 v-if="!this.editor_mode"> {{page.title}} </h1>
+    <h1 v-if="!this.editor_mode"> {{page.title}} </h1>
 	  <img v-if="!this.editor_mode" :src="page.image">
       <div v-if="!editor_mode">{{page.position_text}}</div>
       <p v-if="error"><i class="el-icon-warning"></i>Ошибка {{error}}</p>
@@ -105,100 +140,29 @@
               <div v-if="this.postdelay>0"> syncing...</div>
           </transition>
       </div> -->
-      <div class="table">
-        <div v-if="page_editable()">режим</div><br>
-        <el-switch
-          v-if="page_editable()"
-          v-model="editor_mode"
-          off-color="#ff4949" on-color="#13ce66"
-          on-text="РЕДАКТОР"
-          off-text="ПРОСМОТР "
-          :width=120>
-        </el-switch>
-        <div>
-
-        </div>
-        <div>
-
-        </div>
-
-        <div>
-          Теги<br>
-
-		  <!-- TODO Зафиксить
-          <el-tag v-if="!editor_mode" :key="tag" v-for="tag in page.tags">
-            {{tag | remove_ru}}
-          </el-tag>
-          <div v-if="editor_mode">
-		  -->
-
-			<!--
-
-            <el-tag
-              :key="tag"
-              v-for="tag in page.tags"
-              :closable="true"
-              :close-transition="false"
-              @close="handleClose(tag)">
-                {{tag}}
-              </el-tag>
-              <el-input
-                class="input-new-tag"
-                v-if="inputVisible"
-                v-model="inputValue"
-                ref="saveTagInput"
-                size="mini"
-                @keyup.enter.native="handleInputConfirm"
-                @blur="handleInputConfirm"
-              >
-              </el-input>
-              <el-button v-else class="button-new-tag" size="small" @click="showInput"> + добавить тег
-              </el-button>
-
-			  -->
-
-			<el-select v-model="page.tags" multiple placeholder="Select">
-				<el-option
-				  v-for="tag in tags"
-					:key="tag.id"
-				  :label="tag.name"
-				  :value="tag.id">
-				</el-option>
-			</el-select>
-
-          </div>
-        </div>
-
-        <div v-if="!editor_mode">
-          <el-popover
-                ref="popover1"
-                placement="top-start"
-                title="Понравилось"
-                width="200"
-                trigger="hover"
-                :content="this.page.voters | arrstr ">
-          </el-popover>
-          <el-button v-popover:popover1>
-            поддержали:{{this.page.voters ? this.page.voters.length : null }}
-          </el-button>
-          <el-button  v-on:click="vote()">
-            <i class="fa fa-heart "></i>
-          </el-button>
-        </div>
+      <p>
+        Теги проекта:
+        <span v-for="tag in tags">
+         <b> {{tag.name}}</b>
+        </span>
+      </p>
+     <!--  <el-select v-model="page.tags" v-if="!editor_mode" :disabled="!editor_mode" multiple>
+        <el-option
+          v-for="tag in tags"
+          :key="tag.id"
+          :label="tag.name"
+          :value="tag.id">
+        </el-option>
+      </el-select>
+ -->
 
 
       </div>
 
-        <article v-bind:class="{ mark_preview: this.editor_mode, page_view: !this.editor_mode  }" class="" v-html="mark_view">
+        <article v-bind:class="{ mark_preview: this.editor_mode, page_view: !this.editor_mode  }" class="" v-if="!editor_mode" v-html="mark_view">
         </article>
 
 
-        <comments
-					class="comments"
-					v-for="comment in comments"
-					:key="comment.id"
-					:model="comment">
-				</comments>
 
     </div>
   </div>
@@ -213,9 +177,9 @@ import Vue from 'vue'
 import Top from '../base/Top.vue'
 import Right from '../base/Right.vue'
 import auth from '../auth'
-import Comments from './Comments.vue'
+
 import InputTag from 'vue-input-tag'
-import {Page, MasterTag, Tag, Comment, Category} from '../services/services'
+import {Page, Tag,  Category} from '../services/services'
 
 Vue.filter('arrstr', function (arr) {
   var result = ''
@@ -242,6 +206,7 @@ export default {
       center: {lat: 0.0, lng: 0.0},
       markers:[],//JSON.parse(data.markers),
       mark_view:"",
+
       postdelay:null,
       error:false,
       categories:[],
@@ -306,17 +271,17 @@ export default {
       'Top':Top,
       'Right':Right,
       'input-tag':InputTag,
-      'comments':Comments,
+
       //'gmap-map':GmapMap
   },
   methods:{
-  	setMasterTag() {
-  		let mtId = this.page.master_tag
-  		MasterTag.ancestors({id: mtId}).then(res => {
-  			this.master_tag_default = res.body
-  			this.master_tag_default.push(mtId)
-  		})
-  	},
+  	// setMasterTag() {
+  	// 	let mtId = this.page.master_tag
+  	// 	MasterTag.ancestors({id: mtId}).then(res => {
+  	// 		this.master_tag_default = res.body
+  	// 		this.master_tag_default.push(mtId)
+  	// 	})
+  	// },
 
       uploadSuccess(image) {
         // console.log('suc',image)
@@ -356,6 +321,10 @@ export default {
     },
 
     initPage () {
+      Category.get().then(res => {
+        this.categories = res.body
+      })
+
       if (this.$route.path=="/add/"){
       //Если пришли на страницу добавления
         this.page={
@@ -370,21 +339,25 @@ export default {
         this.new_page_mode=true
         this.page.status=0
 
-        Category.get().then(res => {
-          this.categories = res.body
-        })
+
 
       } else {
 					Page.get({permlink: this.$route.params.permlink}).then(res => {
 						this.page = res.body
 
-						Comment.get({page: this.page.id}).then(res => {
-							this.comments = res.body
-						})
+            Category.get().then(res => {
+              this.categories = res.body
+              console.log(this.categories, this.page.category)
+              this.page.category=this.categories.filter((it)=> it.id== this.page.category)[0].name
+            })
+
+						// Comment.get({page: this.page.id}).then(res => {
+						// 	this.comments = res.body
+						// })
 
 
 						this.setPlace()
-						this.setMasterTag()
+						// this.setMasterTag()
 						this.mark_preview()
 
 					})
@@ -404,6 +377,7 @@ export default {
         // console.log(this.page.category)
 
   		  Page.save({permlink: this.page.permlink}, this.page).then(res => {
+        this.page.category=this.categories.filter((it)=> it.id== this.page.category)[0].name
   			this.$message({type: 'success', message: 'сохранено'})
 		  }).catch(res => {
 			  this.error = data;
@@ -411,6 +385,7 @@ export default {
 		  })
 		} else {
 			Page.update({permlink: this.page.permlink}, this.page).then(res => {
+        this.page.category=this.categories.filter((it)=> it.id== this.page.category)[0].name
 				this.$message({type: 'success', message: 'сохранено'})
 			}).catch(res => {
 			  this.error = data;
@@ -512,42 +487,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    insertAtCaret(areaId, text) {
-      var txtarea = document.getElementById(areaId);
-      if (!txtarea) { return; }
 
-      var scrollPos = txtarea.scrollTop;
-      var strPos = 0;
-      var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
-        "ff" : (document.selection ? "ie" : false ) );
-      if (br == "ie") {
-        txtarea.focus();
-        var range = document.selection.createRange();
-        range.moveStart ('character', -txtarea.value.length);
-        strPos = range.text.length;
-      } else if (br == "ff") {
-        strPos = txtarea.selectionStart;
-      }
-
-      var front = (txtarea.value).substring(0, strPos);
-      var back = (txtarea.value).substring(strPos, txtarea.value.length);
-      txtarea.value = front + text + back;
-      strPos = strPos + text.length;
-      if (br == "ie") {
-        txtarea.focus();
-        var ieRange = document.selection.createRange();
-        ieRange.moveStart ('character', -txtarea.value.length);
-        ieRange.moveStart ('character', strPos);
-        ieRange.moveEnd ('character', 0);
-        ieRange.select();
-      } else if (br == "ff") {
-        txtarea.selectionStart = strPos;
-        txtarea.selectionEnd = strPos;
-        txtarea.focus();
-      }
-
-      txtarea.scrollTop = scrollPos;
-    },
 
 
   },
@@ -573,11 +513,11 @@ export default {
   created: function () {
     this.initPage();
 
-	Tag.get().then(res => this.tags = res.body)
-    MasterTag.tree().then(res => this.treeData = res.body)
+	   Tag.get().then(res => this.tags = res.body)
+      //MasterTag.tree().then(res => this.treeData = res.body)
 
   //Укажем вывбранный мастертег
-  //this.page.selected_master_tag=[this.page.master_tag]
+  //this.page.selected_master_tag=[this.page.dr_tag]
 
 
     // if (data.page) {
@@ -621,6 +561,9 @@ export default {
 
 
 <style lang="scss">
+.el-icon-caret-top{
+  display: none!important;
+}
 body, h1 , h2 , h3 , p{
     font-family: 'Didact Gothic', sans-serif;
 }
@@ -661,6 +604,7 @@ p{
 
   position: relative;
  width: 80%;
+ padding-top: 2%;
  margin: auto;
   aside > li {
       margin-top: -240px!important;
@@ -717,6 +661,7 @@ p{
     padding: 10px;
     box-sizing: border-box;
     background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
+    background-size: 100%;
     line-height: 25px;
     padding: 2px 10px;
     border: solid 1px #ddd;
