@@ -177,6 +177,7 @@ import {
   display: block;
   margin-left: 4%;
   margin-bottom: 1%;
+  font-size: 20px;
 }
 .el-dropdown {
 
