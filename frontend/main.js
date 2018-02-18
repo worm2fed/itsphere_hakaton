@@ -170,7 +170,7 @@ const routes = [
     component: Profile,
     beforeEnter: (to, from, next) => {
       //переписать!
-        if (!auth.user.authenticated){
+        if (auth.user && !auth.user.authenticated){
            next()
         }
         else{
@@ -189,7 +189,7 @@ const routes = [
     component: Page,
     beforeEnter: (to, from, next) => {
       //переписать!
-        if (!auth.user.authenticated){
+        if (auth.user && !auth.user.authenticated){
            next()
         }
         else{
