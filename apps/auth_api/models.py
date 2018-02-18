@@ -33,6 +33,9 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(**extra_fields)
 
+    def get_queryset(self):
+        return super(UserManager, self).get_queryset()
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=200, unique=True, null=True)
